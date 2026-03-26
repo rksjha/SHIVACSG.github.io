@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SCG Client Sourcing System</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <h1>Shiva Consultancy Group</h1>
+      <p>Client Sourcing & Rapid Qualification System</p>
+    </div>
+    <button id="exportAllBtn" class="secondary">Export All Leads</button>
+  </header>
+
+  <main class="layout">
+    <section class="card">
+      <div class="section-head">
+        <h2>Rapid Intake Form</h2>
+        <p>Designed for DSA / Client / Associate. Target fill time: 2–5 minutes.</p>
+      </div>
+
+      <form id="leadForm">
+        <div class="grid two">
+          <label>Client / Company Name
+            <input type="text" id="clientName" required />
+          </label>
+          <label>Contact Person
+            <input type="text" id="contactPerson" required />
+          </label>
+        </div>
+
+        <div class="grid three">
+          <label>Mobile
+            <input type="text" id="mobile" />
+          </label>
+          <label>Email
+            <input type="email" id="email" />
+          </label>
+          <label>Location
+            <input type="text" id="location" placeholder="City / State" />
+          </label>
+        </div>
+
+        <div class="grid three">
+          <label>Industry / Sector
+            <input type="text" id="sector" placeholder="Agri / Pharma / Infra / MSME etc." />
+          </label>
+          <label>Deal / Project Size (₹ Cr)
+            <input type="number" id="dealSize" min="0" step="0.01" />
+          </label>
+          <label>Funding Required (₹ Cr)
+            <input type="number" id="fundingRequired" min="0" step="0.01" />
+          </label>
+        </div>
+
+        <label>Requirement Type</label>
+        <div class="check-grid">
+          <label><input type="checkbox" name="requirement" value="Debt Funding" /> Debt Funding</label>
+          <label><input type="checkbox" name="requirement" value="Equity / Investor / JV / M&A" /> Equity / Investor / JV / M&A</label>
+          <label><input type="checkbox" name="requirement" value="Project Funding" /> Project Funding</label>
+          <label><input type="checkbox" name="requirement" value="OTS / NPA / Restructuring" /> OTS / NPA / Restructuring</label>
+          <label><input type="checkbox" name="requirement" value="Tender / RFP / EOI" /> Tender / RFP / EOI</label>
+          <label><input type="checkbox" name="requirement" value="Compliance / Liaisoning" /> Compliance / Liaisoning</label>
+          <label><input type="checkbox" name="requirement" value="Strategy / Growth / Turnaround" /> Strategy / Growth / Turnaround</label>
+          <label><input type="checkbox" name="requirement" value="Other" /> Other</label>
+        </div>
+
+        <div class="grid two">
+          <label>Brief Requirement
+            <textarea id="briefRequirement" rows="3" placeholder="State the requirement in 1–2 lines"></textarea>
+          </label>
+          <label>Expected Outcome
+            <textarea id="expectedOutcome" rows="3" placeholder="What does the client want to achieve?"></textarea>
+          </label>
+        </div>
+
+        <div class="grid four">
+          <label>Urgency
+            <select id="urgency">
+              <option value="">Select</option>
+              <option>Immediate (0–30 days)</option>
+              <option>Short (1–3 months)</option>
+              <option>Medium (3–6 months)</option>
+            </select>
+          </label>
+          <label>Banking Status
+            <select id="bankingStatus">
+              <option value="">Select</option>
+              <option>Standard</option>
+              <option>SMA</option>
+              <option>NPA</option>
+              <option>Settled / Closed</option>
+            </select>
+          </label>
+          <label>Promoter Strength
+            <select id="promoterStrength">
+              <option value="">Select</option>
+              <option>Strong</option>
+              <option>Moderate</option>
+              <option>Weak</option>
+            </select>
+          </label>
+          <label>Client Seriousness
+            <select id="seriousness">
+              <option value="">Select</option>
+              <option>Exploring</option>
+              <option>Serious</option>
+              <option>Ready to Proceed</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="grid four">
+          <label>Last FY Turnover (₹ Cr)
+            <input type="number" id="turnover" min="0" step="0.01" />
+          </label>
+          <label>Profit / Loss (₹ Cr)
+            <input type="number" id="profit" step="0.01" />
+          </label>
+          <label>Existing Loan Exposure (₹ Cr)
+            <input type="number" id="loanExposure" min="0" step="0.01" />
+          </label>
+          <label>Willing for Professional Fees?
+            <select id="feesWilling">
+              <option value="">Select</option>
+              <option>Yes</option>
+              <option>No</option>
+              <option>To be discussed</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="grid two">
+          <label>Available Security / Collateral
+            <input type="text" id="security" />
+          </label>
+          <label>Key USP / Strength of Case
+            <input type="text" id="usp" />
+          </label>
+        </div>
+
+        <label>Readiness Checklist</label>
+        <div class="check-grid">
+          <label><input type="checkbox" name="readiness" value="Basic Financials Available" /> Basic Financials Available</label>
+          <label><input type="checkbox" name="readiness" value="Project Report / DPR Available" /> Project Report / DPR Available</label>
+          <label><input type="checkbox" name="readiness" value="Bank Statements Available" /> Bank Statements Available</label>
+          <label><input type="checkbox" name="readiness" value="GST / ITR / ROC Updated" /> GST / ITR / ROC Updated</label>
+          <label><input type="checkbox" name="readiness" value="Title / Licenses Clear" /> Title / Licenses Clear</label>
+        </div>
+
+        <div class="grid two">
+          <label>Referred By / DSA Name
+            <input type="text" id="referredBy" />
+          </label>
+          <label>Known Risks / Constraints
+            <input type="text" id="risks" />
+          </label>
+        </div>
+
+        <div class="actions">
+          <button type="submit">Save Lead</button>
+          <button type="button" id="printBtn" class="secondary">Print Intake</button>
+          <button type="reset" class="secondary">Reset</button>
+        </div>
+      </form>
+    </section>
+
+    <aside class="card">
+      <div class="section-head">
+        <h2>Decision Snapshot</h2>
+        <p>Auto-generated screening support for SCG internal review.</p>
+      </div>
+
+      <div id="scoreBox" class="score-box">
+        <div class="score-label">Opportunity Score</div>
+        <div id="scoreValue" class="score-value">0</div>
+        <div id="ratingBand" class="pill neutral">Unrated</div>
+      </div>
+
+      <div class="summary-list">
+        <div><strong>Suggested Category:</strong> <span id="categoryValue">—</span></div>
+        <div><strong>Suggested Action:</strong> <span id="actionValue">—</span></div>
+        <div><strong>Fee Readiness:</strong> <span id="feeValue">—</span></div>
+      </div>
+
+      <hr />
+
+      <div class="section-head">
+        <h3>Lead Register</h3>
+        <p>Stored locally in the browser for quick working use.</p>
+      </div>
+      <div id="leadList" class="lead-list"></div>
+    </aside>
+  </main>
+
+  <footer class="footer">
+    Shiva Consultancy Group | Ahmedabad, India | www.shivagroup.org.in
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
