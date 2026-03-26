@@ -11,7 +11,6 @@
   <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
-
 <header class="site-header">
   <div class="nav-container">
     <a href="../index.html" class="nav-brand">
@@ -23,16 +22,19 @@
     </a>
     <nav>
       <div class="nav-links" id="navLinks">
-      <a href="../index.html" >Home</a>
-      <a href="../products/index.html" >Products</a>
+      <a href="../index.html">Home</a>
+      <a href="../products/index.html">Products</a>
       <a href="../services/index.html" class="active">Services</a>
-      <a href="../advertorials/index.html" >Advertorials</a>
-      <a href="../small-apps/index.html" >Small Apps</a>
-      <a href="../media/index.html" >Media</a>
+      <a href="../advertorials/index.html">Advertorials</a>
+      <a href="../small-apps/index.html">Small Apps</a>
+      <a href="../media/index.html">Media</a>
+      <a href="../contact/index.html">Contact</a>
 
       </div>
     </nav>
-    <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </header>
 
@@ -49,7 +51,7 @@
     <div class="upload-hint-icon">&#128161;</div>
     <div>
       <h4>How to add files</h4>
-      <p>Drop service brochures, proposal templates, or case studies here. &mdash; Push to GitHub and the gallery updates automatically.</p>
+      <p>Drop service brochures, proposal templates, or case studies here. &mdash; Push to GitHub and the gallery updates automatically within 2 minutes.</p>
     </div>
   </div>
 
@@ -63,16 +65,54 @@
   <div class="share-bar" style="margin-top:40px;">
     <span class="share-bar-label">Share this page:</span>
     <div class="share-buttons">
-      <button class="share-btn share-whatsapp" onclick="shareWhatsApp('Services — Shiva Consultancy Group','https://rksjha.github.io/SHIVACSG.github.io/services/')">&#128172; WhatsApp</button>
+      <button class="share-btn share-whatsapp" onclick="shareWhatsApp('Services','https://rksjha.github.io/SHIVACSG.github.io/services/')">&#128172; WhatsApp</button>
       <button class="share-btn share-linkedin" onclick="shareLinkedIn('https://rksjha.github.io/SHIVACSG.github.io/services/')">&#128279; LinkedIn</button>
       <button class="share-btn share-twitter"  onclick="shareTwitter('Services','https://rksjha.github.io/SHIVACSG.github.io/services/')">&#128038; Twitter</button>
       <button class="share-btn share-copy" id="copyLinkBtn" onclick="copyLink('https://rksjha.github.io/SHIVACSG.github.io/services/')">&#128279; Copy Link</button>
     </div>
   </div>
+
+  <div style="margin-top:32px;text-align:center;">
+    <a href="../contact/index.html" class="btn btn-primary" style="display:inline-flex;">
+      &#128140; Enquire About This
+    </a>
+  </div>
 </div>
 
 <footer class="site-footer">
-  <div class="footer-bottom">&copy; 2024 Shiva Consultancy Group &nbsp;|&nbsp; Managed by Rakesh Jha</div>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="company">Shiva Consultancy Group</div>
+      <div class="tagline">Professional Business Solutions</div>
+      <p>Empowering businesses across India with expert consultancy, government scheme advisory, and strategic business development.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <a href="../products/index.html">Products</a>
+      <a href="../services/index.html">Services</a>
+      <a href="../advertorials/index.html">Advertorials</a>
+      <a href="../small-apps/index.html">Small Apps</a>
+      <a href="../media/index.html">Media Library</a>
+    </div>
+    <div class="footer-col">
+      <h4>Specialisations</h4>
+      <a href="#">Agriculture Infrastructure</a>
+      <a href="#">Government Schemes</a>
+      <a href="#">Food Processing</a>
+      <a href="#">Business Development</a>
+      <a href="#">IPO &amp; Finance Advisory</a>
+    </div>
+    <div class="footer-col">
+      <h4>Connect with SCG</h4>
+      <a href="../contact/index.html">&#128140; Contact Us</a>
+      <a href="#">&#128172; WhatsApp</a>
+      <a href="#">&#128279; LinkedIn</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    &copy; 2026 Shiva Consultancy Group. All rights reserved. &nbsp;|&nbsp;
+    Managed by Rakesh Jha
+  </div>
 </footer>
 <script src="../assets/js/main.js"></script>
 </body>

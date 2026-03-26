@@ -4,14 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Small Apps | Shiva Consultancy Group</title>
-  <meta name="description" content="Handy tools and mini-applications.">
+  <meta name="description" content="Handy tools — proposal generators, prompt builders, and business utilities.">
   <meta property="og:title"       content="Small Apps | SCG">
-  <meta property="og:description" content="Handy tools and mini-applications.">
+  <meta property="og:description" content="Handy tools — proposal generators, prompt builders, and business utilities.">
   <meta property="og:url"         content="https://rksjha.github.io/SHIVACSG.github.io/small-apps/">
   <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
-
 <header class="site-header">
   <div class="nav-container">
     <a href="../index.html" class="nav-brand">
@@ -23,16 +22,19 @@
     </a>
     <nav>
       <div class="nav-links" id="navLinks">
-      <a href="../index.html" >Home</a>
-      <a href="../products/index.html" >Products</a>
-      <a href="../services/index.html" >Services</a>
-      <a href="../advertorials/index.html" >Advertorials</a>
+      <a href="../index.html">Home</a>
+      <a href="../products/index.html">Products</a>
+      <a href="../services/index.html">Services</a>
+      <a href="../advertorials/index.html">Advertorials</a>
       <a href="../small-apps/index.html" class="active">Small Apps</a>
-      <a href="../media/index.html" >Media</a>
+      <a href="../media/index.html">Media</a>
+      <a href="../contact/index.html">Contact</a>
 
       </div>
     </nav>
-    <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </header>
 
@@ -40,7 +42,7 @@
   <div class="page-header-inner">
     <div class="breadcrumb"><a href="../index.html">Home</a><span>/</span><span>Small Apps</span></div>
     <h1>&#9889; Small Apps</h1>
-    <p>Handy tools and mini-applications.</p>
+    <p>Handy tools — proposal generators, prompt builders, and business utilities.</p>
   </div>
 </div>
 
@@ -49,30 +51,111 @@
     <div class="upload-hint-icon">&#128161;</div>
     <div>
       <h4>How to add files</h4>
-      <p>Drop HTML app files here. Each .html file becomes a launchable app card. &mdash; Push to GitHub and the gallery updates automatically.</p>
+      <p>Drop HTML app files here. Each .html file becomes a launchable app card. &mdash; Push to GitHub and the gallery updates automatically within 2 minutes.</p>
     </div>
   </div>
 
-    <div class="empty-state">
-      <div class="empty-state-icon">&#9889;</div>
-      <h3>No files yet</h3>
-      <p>Drop HTML app files here. Each .html file becomes a launchable app card.</p>
-      <code>GitHub &rarr; small-apps/</code>
+    <div class="gallery-toolbar">
+      <span class="gallery-count"><span id="fileCount">3 items</span></span>
+      <input class="search-box" id="gallerySearch" type="search" placeholder="Search files...">
+    </div>
+    <div class="file-grid">
+      
+      <div class="file-card" data-name="scg_prompt_builder.html">
+        <div class="file-card-thumb">
+          <div style="font-size:52px;line-height:140px;">&#9889;</div>
+          <div class="file-card-type-badge" style="background:#0d2b5e;">App</div>
+        </div>
+        <div class="file-card-body">
+          <div class="file-card-name">scg prompt builder</div>
+          <div class="file-card-meta">HTML &nbsp;38.7 KB</div>
+        </div>
+        <div class="file-card-actions">
+          <a class="btn-sm btn-view" href="scg_prompt_builder.html" target="_blank">&#128065; Open</a>
+          <button class="btn-sm btn-share" onclick="shareFile('scg prompt builder','https://rksjha.github.io/SHIVACSG.github.io/small-apps/scg_prompt_builder.html')">&#8679; Share</button>
+        </div>
+      </div>
+      <div class="file-card" data-name="scg_proposal_generator.html">
+        <div class="file-card-thumb">
+          <div style="font-size:52px;line-height:140px;">&#9889;</div>
+          <div class="file-card-type-badge" style="background:#0d2b5e;">App</div>
+        </div>
+        <div class="file-card-body">
+          <div class="file-card-name">scg proposal generator</div>
+          <div class="file-card-meta">HTML &nbsp;47.9 KB</div>
+        </div>
+        <div class="file-card-actions">
+          <a class="btn-sm btn-view" href="scg_proposal_generator.html" target="_blank">&#128065; Open</a>
+          <button class="btn-sm btn-share" onclick="shareFile('scg proposal generator','https://rksjha.github.io/SHIVACSG.github.io/small-apps/scg_proposal_generator.html')">&#8679; Share</button>
+        </div>
+      </div>
+      <div class="file-card" data-name="scg_social_post.html">
+        <div class="file-card-thumb">
+          <div style="font-size:52px;line-height:140px;">&#9889;</div>
+          <div class="file-card-type-badge" style="background:#0d2b5e;">App</div>
+        </div>
+        <div class="file-card-body">
+          <div class="file-card-name">scg social post</div>
+          <div class="file-card-meta">HTML &nbsp;24.1 KB</div>
+        </div>
+        <div class="file-card-actions">
+          <a class="btn-sm btn-view" href="scg_social_post.html" target="_blank">&#128065; Open</a>
+          <button class="btn-sm btn-share" onclick="shareFile('scg social post','https://rksjha.github.io/SHIVACSG.github.io/small-apps/scg_social_post.html')">&#8679; Share</button>
+        </div>
+      </div>
     </div>
 
   <div class="share-bar" style="margin-top:40px;">
     <span class="share-bar-label">Share this page:</span>
     <div class="share-buttons">
-      <button class="share-btn share-whatsapp" onclick="shareWhatsApp('Small Apps — Shiva Consultancy Group','https://rksjha.github.io/SHIVACSG.github.io/small-apps/')">&#128172; WhatsApp</button>
+      <button class="share-btn share-whatsapp" onclick="shareWhatsApp('Small Apps','https://rksjha.github.io/SHIVACSG.github.io/small-apps/')">&#128172; WhatsApp</button>
       <button class="share-btn share-linkedin" onclick="shareLinkedIn('https://rksjha.github.io/SHIVACSG.github.io/small-apps/')">&#128279; LinkedIn</button>
       <button class="share-btn share-twitter"  onclick="shareTwitter('Small Apps','https://rksjha.github.io/SHIVACSG.github.io/small-apps/')">&#128038; Twitter</button>
       <button class="share-btn share-copy" id="copyLinkBtn" onclick="copyLink('https://rksjha.github.io/SHIVACSG.github.io/small-apps/')">&#128279; Copy Link</button>
     </div>
   </div>
+
+  <div style="margin-top:32px;text-align:center;">
+    <a href="../contact/index.html" class="btn btn-primary" style="display:inline-flex;">
+      &#128140; Enquire About This
+    </a>
+  </div>
 </div>
 
 <footer class="site-footer">
-  <div class="footer-bottom">&copy; 2024 Shiva Consultancy Group &nbsp;|&nbsp; Managed by Rakesh Jha</div>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="company">Shiva Consultancy Group</div>
+      <div class="tagline">Professional Business Solutions</div>
+      <p>Empowering businesses across India with expert consultancy, government scheme advisory, and strategic business development.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <a href="../products/index.html">Products</a>
+      <a href="../services/index.html">Services</a>
+      <a href="../advertorials/index.html">Advertorials</a>
+      <a href="../small-apps/index.html">Small Apps</a>
+      <a href="../media/index.html">Media Library</a>
+    </div>
+    <div class="footer-col">
+      <h4>Specialisations</h4>
+      <a href="#">Agriculture Infrastructure</a>
+      <a href="#">Government Schemes</a>
+      <a href="#">Food Processing</a>
+      <a href="#">Business Development</a>
+      <a href="#">IPO &amp; Finance Advisory</a>
+    </div>
+    <div class="footer-col">
+      <h4>Connect with SCG</h4>
+      <a href="../contact/index.html">&#128140; Contact Us</a>
+      <a href="#">&#128172; WhatsApp</a>
+      <a href="#">&#128279; LinkedIn</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    &copy; 2026 Shiva Consultancy Group. All rights reserved. &nbsp;|&nbsp;
+    Managed by Rakesh Jha
+  </div>
 </footer>
 <script src="../assets/js/main.js"></script>
 </body>

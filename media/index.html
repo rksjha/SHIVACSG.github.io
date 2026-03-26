@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Media Library | Shiva Consultancy Group</title>
   <meta property="og:title" content="SCG Media Library">
-  <meta property="og:description" content="Images, videos and PDFs from Shiva Consultancy Group">
+  <meta property="og:description" content="Images, videos and documents from Shiva Consultancy Group">
   <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
@@ -18,28 +18,34 @@
         <div class="tagline">Professional Business Solutions</div>
       </div>
     </a>
-    <nav><div class="nav-links" id="navLinks">
+    <nav>
+      <div class="nav-links" id="navLinks">
       <a href="../index.html">Home</a>
       <a href="../products/index.html">Products</a>
       <a href="../services/index.html">Services</a>
       <a href="../advertorials/index.html">Advertorials</a>
       <a href="../small-apps/index.html">Small Apps</a>
-      <a href="index.html" class="active">Media</a>
-    </div></nav>
-    <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+      <a href="../media/index.html" class="active">Media</a>
+      <a href="../contact/index.html">Contact</a>
+
+      </div>
+    </nav>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </header>
 
 <div class="page-header">
   <div class="page-header-inner">
-    <div class="breadcrumb"><a href="../index.html">Home</a><span>/</span> Media Library</div>
+    <div class="breadcrumb"><a href="../index.html">Home</a><span>/</span><span>Media Library</span></div>
     <h1>&#127916; Media Library</h1>
-    <p>Images, videos, PDFs, and downloadable resources</p>
+    <p>Images, videos, PDFs, and downloadable resources from SCG</p>
   </div>
 </div>
 
 <div class="main-content">
-  <div class="sections-grid" style="padding:0; margin:0;">
+  <div class="sections-grid" style="padding:0;margin:0 0 8px;">
     <a href="images/index.html" class="section-card">
       <div class="section-card-icon">&#128247;</div>
       <h3>Images</h3>
@@ -49,20 +55,111 @@
     <a href="videos/index.html" class="section-card">
       <div class="section-card-icon">&#127909;</div>
       <h3>Videos</h3>
-      <p>Video content for promotions, presentations, and social sharing.</p>
+      <p>Video content for promotions and social sharing.</p>
       <div class="section-card-arrow">View Videos &#8594;</div>
     </a>
     <a href="pdfs/index.html" class="section-card">
       <div class="section-card-icon">&#128196;</div>
       <h3>PDF Documents</h3>
-      <p>Downloadable documents, reports, brochures, and publications.</p>
+      <p>Downloadable documents, reports, and publications.</p>
       <div class="section-card-arrow">View PDFs &#8594;</div>
     </a>
+  </div>
+  
+  <h2 style="font-size:20px;font-weight:700;color:var(--primary);margin:36px 0 16px;">Recent Media</h2>
+  <div class="gallery-toolbar">
+    <span class="gallery-count"><span id="fileCount">3 items</span></span>
+    <input class="search-box" id="gallerySearch" type="search" placeholder="Search...">
+  </div>
+  <div class="file-grid">
+      <div class="file-card" data-name="00000088-photo-2024-08-03-18-48-06.jpg">
+        <div class="file-card-thumb">
+          <img src="00000088-PHOTO-2024-08-03-18-48-06.jpg" alt="00000088-PHOTO-2024-08-03-18-48-06.jpg" loading="lazy">
+          <div class="file-card-type-badge" style="background:#27ae60;">Image</div>
+        </div>
+        <div class="file-card-body">
+          <div class="file-card-name">00000088 PHOTO 2024 08 03 18 48 06</div>
+          <div class="file-card-meta">JPG &nbsp;85.7 KB</div>
+        </div>
+        <div class="file-card-actions">
+          <a class="btn-sm btn-view" href="00000088-PHOTO-2024-08-03-18-48-06.jpg" target="_blank">&#128065; View</a>
+          <button class="btn-sm btn-share" onclick="shareFile('00000088 PHOTO 2024 08 03 18 48 06','https://rksjha.github.io/SHIVACSG.github.io/media/00000088-PHOTO-2024-08-03-18-48-06.jpg')">&#8679; Share</button>
+        </div>
+      </div>
+      <div class="file-card" data-name="00000106-photo-2025-08-02-11-22-30.jpg">
+        <div class="file-card-thumb">
+          <img src="00000106-PHOTO-2025-08-02-11-22-30.jpg" alt="00000106-PHOTO-2025-08-02-11-22-30.jpg" loading="lazy">
+          <div class="file-card-type-badge" style="background:#27ae60;">Image</div>
+        </div>
+        <div class="file-card-body">
+          <div class="file-card-name">00000106 PHOTO 2025 08 02 11 22 30</div>
+          <div class="file-card-meta">JPG &nbsp;235.6 KB</div>
+        </div>
+        <div class="file-card-actions">
+          <a class="btn-sm btn-view" href="00000106-PHOTO-2025-08-02-11-22-30.jpg" target="_blank">&#128065; View</a>
+          <button class="btn-sm btn-share" onclick="shareFile('00000106 PHOTO 2025 08 02 11 22 30','https://rksjha.github.io/SHIVACSG.github.io/media/00000106-PHOTO-2025-08-02-11-22-30.jpg')">&#8679; Share</button>
+        </div>
+      </div>
+      <div class="file-card" data-name="00000317-video-2025-12-26-17-08-52.mp4">
+        <div class="file-card-thumb">
+          <video src="00000317-VIDEO-2025-12-26-17-08-52.mp4" preload="metadata" style="width:100%;height:100%;object-fit:cover;" muted></video>
+          <div class="file-card-type-badge" style="background:#8e44ad;">Video</div>
+        </div>
+        <div class="file-card-body">
+          <div class="file-card-name">00000317 VIDEO 2025 12 26 17 08 52</div>
+          <div class="file-card-meta">MP4 &nbsp;28.9 MB</div>
+        </div>
+        <div class="file-card-actions">
+          <a class="btn-sm btn-view" href="00000317-VIDEO-2025-12-26-17-08-52.mp4" target="_blank">&#9654; Play</a>
+          <button class="btn-sm btn-share" onclick="shareFile('00000317 VIDEO 2025 12 26 17 08 52','https://rksjha.github.io/SHIVACSG.github.io/media/00000317-VIDEO-2025-12-26-17-08-52.mp4')">&#8679; Share</button>
+        </div>
+      </div></div>
+  
+  <div class="share-bar" style="margin-top:40px;">
+    <span class="share-bar-label">Share this page:</span>
+    <div class="share-buttons">
+      <button class="share-btn share-whatsapp" onclick="shareWhatsApp('SCG Media Library','https://rksjha.github.io/SHIVACSG.github.io/media/')">&#128172; WhatsApp</button>
+      <button class="share-btn share-linkedin" onclick="shareLinkedIn('https://rksjha.github.io/SHIVACSG.github.io/media/')">&#128279; LinkedIn</button>
+      <button class="share-btn share-twitter"  onclick="shareTwitter('SCG Media Library','https://rksjha.github.io/SHIVACSG.github.io/media/')">&#128038; Twitter</button>
+      <button class="share-btn share-copy" id="copyLinkBtn" onclick="copyLink('https://rksjha.github.io/SHIVACSG.github.io/media/')">&#128279; Copy Link</button>
+    </div>
   </div>
 </div>
 
 <footer class="site-footer">
-  <div class="footer-bottom">&copy; 2024 Shiva Consultancy Group &nbsp;|&nbsp; Managed by Rakesh Jha</div>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="company">Shiva Consultancy Group</div>
+      <div class="tagline">Professional Business Solutions</div>
+      <p>Empowering businesses across India with expert consultancy, government scheme advisory, and strategic business development.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <a href="../products/index.html">Products</a>
+      <a href="../services/index.html">Services</a>
+      <a href="../advertorials/index.html">Advertorials</a>
+      <a href="../small-apps/index.html">Small Apps</a>
+      <a href="../media/index.html">Media Library</a>
+    </div>
+    <div class="footer-col">
+      <h4>Specialisations</h4>
+      <a href="#">Agriculture Infrastructure</a>
+      <a href="#">Government Schemes</a>
+      <a href="#">Food Processing</a>
+      <a href="#">Business Development</a>
+      <a href="#">IPO &amp; Finance Advisory</a>
+    </div>
+    <div class="footer-col">
+      <h4>Connect with SCG</h4>
+      <a href="../contact/index.html">&#128140; Contact Us</a>
+      <a href="#">&#128172; WhatsApp</a>
+      <a href="#">&#128279; LinkedIn</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    &copy; 2026 Shiva Consultancy Group. All rights reserved. &nbsp;|&nbsp;
+    Managed by Rakesh Jha
+  </div>
 </footer>
 <script src="../assets/js/main.js"></script>
 </body>

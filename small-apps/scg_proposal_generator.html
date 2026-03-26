@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SCG Proposal Generator — Shiva Consultancy Group</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0a1628;
+    --navy-mid: #112240;
+    --navy-light: #1a3a5c;
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --gold-pale: #f5e9c8;
+    --cream: #faf8f3;
+    --white: #ffffff;
+    --text-body: #2c3e50;
+    --text-muted: #6b7c93;
+    --border: rgba(201,168,76,0.25);
+    --shadow: 0 20px 60px rgba(10,22,40,0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Crimson Pro', Georgia, serif;
+    background: var(--cream);
+    color: var(--text-body);
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  .app-header {
+    background: var(--navy);
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .app-header::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -10%;
+    width: 60%; height: 200%;
+    background: radial-gradient(ellipse, rgba(201,168,76,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .header-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 32px 40px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    z-index: 1;
+  }
+  .logo-block { display: flex; align-items: center; gap: 18px; }
+  .logo-emblem {
+    width: 54px; height: 54px;
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+    border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 22px; font-weight: 900;
+    color: var(--navy);
+    letter-spacing: -1px;
+    flex-shrink: 0;
+  }
+  .logo-text h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px; font-weight: 700;
+    color: var(--white);
+    letter-spacing: 0.3px;
+    line-height: 1.2;
+  }
+  .logo-text p {
+    font-family: 'Crimson Pro', serif;
+    font-size: 13px; color: var(--gold);
+    letter-spacing: 2px; text-transform: uppercase;
+    font-weight: 300;
+  }
+  .header-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; color: rgba(201,168,76,0.7);
+    letter-spacing: 1.5px; text-transform: uppercase;
+    border: 1px solid rgba(201,168,76,0.2);
+    padding: 6px 14px; border-radius: 2px;
+  }
+
+  /* ── MAIN LAYOUT ── */
+  .app-body {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 40px 80px;
+    display: grid;
+    grid-template-columns: 420px 1fr;
+    gap: 36px;
+    align-items: start;
+  }
+
+  /* ── INPUT PANEL ── */
+  .input-panel {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 24px;
+  }
+  .panel-head {
+    background: var(--navy);
+    padding: 20px 28px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .panel-head-dot {
+    width: 8px; height: 8px;
+    background: var(--gold);
+    border-radius: 50%;
+  }
+  .panel-head h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px; font-weight: 600;
+    color: var(--white);
+    letter-spacing: 0.3px;
+  }
+  .panel-body { padding: 28px; }
+
+  .field-group { margin-bottom: 20px; }
+  .field-group label {
+    display: block;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; font-weight: 500;
+    color: var(--navy-light);
+    letter-spacing: 2px; text-transform: uppercase;
+    margin-bottom: 7px;
+  }
+  .field-group label span {
+    color: var(--gold);
+    margin-left: 3px;
+  }
+  .field-group input,
+  .field-group textarea,
+  .field-group select {
+    width: 100%;
+    font-family: 'Crimson Pro', serif;
+    font-size: 15px;
+    color: var(--text-body);
+    background: var(--cream);
+    border: 1px solid rgba(10,22,40,0.12);
+    border-radius: 3px;
+    padding: 10px 14px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    resize: none;
+  }
+  .field-group input:focus,
+  .field-group textarea:focus,
+  .field-group select:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(201,168,76,0.12);
+  }
+  .field-group textarea { height: 70px; }
+
+  .fee-selector { margin-bottom: 20px; }
+  .fee-selector label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; font-weight: 500;
+    color: var(--navy-light);
+    letter-spacing: 2px; text-transform: uppercase;
+    display: block; margin-bottom: 9px;
+  }
+  .fee-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+  }
+  .fee-option {
+    border: 1px solid rgba(10,22,40,0.12);
+    border-radius: 3px;
+    padding: 9px 12px;
+    cursor: pointer;
+    background: var(--cream);
+    transition: all 0.15s;
+    position: relative;
+  }
+  .fee-option:hover { border-color: var(--gold); }
+  .fee-option.active {
+    border-color: var(--gold);
+    background: rgba(201,168,76,0.07);
+  }
+  .fee-option.active::after {
+    content: '✓';
+    position: absolute; top: 6px; right: 9px;
+    font-size: 11px; color: var(--gold);
+    font-weight: 700;
+  }
+  .fee-name {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; color: var(--navy-light);
+    letter-spacing: 1px; text-transform: uppercase;
+    margin-bottom: 2px;
+  }
+  .fee-inr {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px; font-weight: 700;
+    color: var(--navy);
+  }
+  .fee-usd {
+    font-family: 'Crimson Pro', serif;
+    font-size: 11px; color: var(--text-muted);
+  }
+
+  .divider {
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--border), transparent);
+    margin: 20px 0;
+  }
+
+  .btn-generate {
+    width: 100%;
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+    color: var(--navy);
+    font-family: 'Playfair Display', serif;
+    font-size: 15px; font-weight: 700;
+    letter-spacing: 0.5px;
+    border: none;
+    border-radius: 3px;
+    padding: 14px 28px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+  }
+  .btn-generate:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(201,168,76,0.35);
+  }
+  .btn-generate:active { transform: translateY(0); }
+
+  .btn-print {
+    width: 100%;
+    background: transparent;
+    color: var(--navy);
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    border: 1px solid rgba(10,22,40,0.2);
+    border-radius: 3px;
+    padding: 11px 28px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: all 0.2s;
+  }
+  .btn-print:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+
+  /* ── OUTPUT PANEL ── */
+  .output-panel {
+    min-height: 600px;
+  }
+
+  .empty-state {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 80px 40px;
+    text-align: center;
+    box-shadow: var(--shadow);
+  }
+  .empty-icon {
+    width: 64px; height: 64px;
+    border: 2px solid var(--border);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 26px;
+  }
+  .empty-state h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px; color: var(--navy);
+    margin-bottom: 10px;
+  }
+  .empty-state p {
+    font-size: 16px; color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  /* ── PROPOSAL OUTPUT ── */
+  .proposal-doc {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    display: none;
+  }
+
+  /* Cover */
+  .proposal-cover {
+    background: var(--navy);
+    padding: 56px 56px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+  .proposal-cover::before {
+    content: '';
+    position: absolute;
+    bottom: -30%; right: -10%;
+    width: 50%; height: 180%;
+    background: radial-gradient(ellipse, rgba(201,168,76,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .proposal-cover::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light), var(--gold));
+  }
+  .cover-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; color: var(--gold);
+    letter-spacing: 3px; text-transform: uppercase;
+    margin-bottom: 16px;
+    opacity: 0.8;
+  }
+  .cover-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px; font-weight: 700;
+    color: var(--white);
+    line-height: 1.25;
+    margin-bottom: 8px;
+  }
+  .cover-subtitle {
+    font-family: 'Crimson Pro', serif;
+    font-size: 17px; color: var(--gold-pale);
+    font-style: italic;
+    margin-bottom: 36px;
+    opacity: 0.85;
+  }
+  .cover-meta {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    border-top: 1px solid rgba(201,168,76,0.2);
+    padding-top: 28px;
+    margin-top: 4px;
+  }
+  .cover-meta-item label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px; color: rgba(201,168,76,0.6);
+    letter-spacing: 2px; text-transform: uppercase;
+    display: block; margin-bottom: 4px;
+  }
+  .cover-meta-item span {
+    font-family: 'Crimson Pro', serif;
+    font-size: 14px; color: var(--white);
+    font-weight: 400;
+  }
+  .confidential-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    border: 1px solid rgba(201,168,76,0.3);
+    padding: 5px 12px;
+    border-radius: 2px;
+    margin-bottom: 28px;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px; color: rgba(201,168,76,0.7);
+    letter-spacing: 2px; text-transform: uppercase;
+  }
+  .confidential-badge::before {
+    content: '⬛';
+    font-size: 7px;
+    opacity: 0.5;
+  }
+
+  /* Sections */
+  .proposal-content { padding: 0 56px 56px; }
+
+  .section-block {
+    margin-top: 44px;
+    padding-bottom: 36px;
+    border-bottom: 1px solid rgba(10,22,40,0.07);
+  }
+  .section-block:last-child { border-bottom: none; }
+
+  .section-number {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; color: var(--gold);
+    letter-spacing: 2px; text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px; font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 18px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--gold-pale);
+    position: relative;
+  }
+  .section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -2px; left: 0;
+    width: 40px; height: 2px;
+    background: var(--gold);
+  }
+
+  .section-body {
+    font-family: 'Crimson Pro', serif;
+    font-size: 16px;
+    color: var(--text-body);
+    line-height: 1.75;
+  }
+  .section-body p { margin-bottom: 14px; }
+  .section-body p:last-child { margin-bottom: 0; }
+  .section-body strong {
+    color: var(--navy);
+    font-weight: 600;
+  }
+
+  /* Sub-headings within sections */
+  .sub-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px; font-weight: 600;
+    color: var(--navy-light);
+    margin: 20px 0 8px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .sub-heading::before {
+    content: '';
+    display: inline-block;
+    width: 20px; height: 2px;
+    background: var(--gold);
+    flex-shrink: 0;
+  }
+
+  /* Bullet list */
+  .scg-list {
+    list-style: none;
+    margin: 10px 0 14px;
+  }
+  .scg-list li {
+    font-family: 'Crimson Pro', serif;
+    font-size: 15.5px;
+    color: var(--text-body);
+    line-height: 1.65;
+    padding: 5px 0 5px 22px;
+    position: relative;
+    border-bottom: 1px solid rgba(10,22,40,0.04);
+  }
+  .scg-list li::before {
+    content: '◆';
+    position: absolute; left: 0;
+    color: var(--gold);
+    font-size: 8px;
+    top: 11px;
+  }
+
+  /* Fee Table */
+  .fee-table-wrap {
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-top: 16px;
+  }
+  .fee-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .fee-table thead tr {
+    background: var(--navy);
+  }
+  .fee-table thead th {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; font-weight: 500;
+    color: var(--gold);
+    letter-spacing: 1.5px; text-transform: uppercase;
+    padding: 12px 16px;
+    text-align: left;
+  }
+  .fee-table tbody tr {
+    border-bottom: 1px solid rgba(201,168,76,0.12);
+    transition: background 0.15s;
+  }
+  .fee-table tbody tr:last-child { border-bottom: none; }
+  .fee-table tbody tr:nth-child(even) { background: rgba(201,168,76,0.03); }
+  .fee-table tbody tr.highlighted {
+    background: rgba(201,168,76,0.1) !important;
+  }
+  .fee-table tbody td {
+    font-family: 'Crimson Pro', serif;
+    font-size: 15px;
+    color: var(--text-body);
+    padding: 11px 16px;
+  }
+  .fee-table tbody td:first-child { font-weight: 600; color: var(--navy); }
+  .fee-table tbody td.inr-cell {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px; font-weight: 700;
+    color: var(--navy);
+  }
+
+  /* Timeline table */
+  .timeline-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 14px;
+  }
+  .timeline-table th {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; color: var(--gold);
+    letter-spacing: 1.5px; text-transform: uppercase;
+    background: var(--navy);
+    padding: 11px 16px; text-align: left;
+  }
+  .timeline-table td {
+    font-family: 'Crimson Pro', serif;
+    font-size: 15px;
+    color: var(--text-body);
+    padding: 10px 16px;
+    border-bottom: 1px solid rgba(201,168,76,0.1);
+    vertical-align: top;
+  }
+  .timeline-table td:first-child {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--gold);
+    white-space: nowrap;
+    font-weight: 500;
+  }
+  .timeline-table td:nth-child(2) {
+    font-weight: 600; color: var(--navy);
+  }
+
+  /* Info cards */
+  .info-card-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: 14px;
+  }
+  .info-card {
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 16px 18px;
+    background: var(--cream);
+    position: relative;
+    overflow: hidden;
+  }
+  .info-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+    background: linear-gradient(to bottom, var(--gold), var(--gold-light));
+  }
+  .info-card-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px; color: var(--gold);
+    letter-spacing: 2px; text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .info-card-value {
+    font-family: 'Crimson Pro', serif;
+    font-size: 15px; color: var(--navy);
+    font-weight: 600; line-height: 1.4;
+  }
+
+  /* Highlight box */
+  .highlight-box {
+    background: linear-gradient(135deg, rgba(201,168,76,0.08), rgba(201,168,76,0.03));
+    border: 1px solid rgba(201,168,76,0.3);
+    border-left: 3px solid var(--gold);
+    border-radius: 3px;
+    padding: 18px 22px;
+    margin: 16px 0;
+    font-family: 'Crimson Pro', serif;
+    font-size: 16px; font-style: italic;
+    color: var(--navy);
+    line-height: 1.6;
+  }
+
+  /* Why SCG pillars */
+  .pillar-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 14px;
+  }
+  .pillar-item {
+    background: var(--navy);
+    border-radius: 3px;
+    padding: 16px 18px;
+    position: relative;
+    overflow: hidden;
+  }
+  .pillar-item::after {
+    content: '';
+    position: absolute;
+    bottom: 0; right: 0;
+    width: 40px; height: 40px;
+    background: radial-gradient(circle, rgba(201,168,76,0.15) 0%, transparent 70%);
+  }
+  .pillar-icon {
+    font-size: 18px; margin-bottom: 8px;
+    display: block;
+  }
+  .pillar-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px; font-weight: 700;
+    color: var(--gold);
+    margin-bottom: 5px;
+  }
+  .pillar-desc {
+    font-family: 'Crimson Pro', serif;
+    font-size: 13px; color: rgba(255,255,255,0.7);
+    line-height: 1.5;
+  }
+
+  /* Closing / Signature */
+  .proposal-closing {
+    background: var(--navy);
+    padding: 44px 56px;
+    position: relative;
+    overflow: hidden;
+  }
+  .proposal-closing::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  .closing-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px; font-weight: 400;
+    color: var(--white);
+    font-style: italic;
+    line-height: 1.6;
+    margin-bottom: 32px;
+    max-width: 620px;
+  }
+  .sig-block {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+  .sig-logo {
+    width: 48px; height: 48px;
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    border-radius: 3px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 18px; font-weight: 900;
+    color: var(--navy);
+    flex-shrink: 0;
+  }
+  .sig-details { flex: 1; }
+  .sig-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px; font-weight: 700;
+    color: var(--white);
+    margin-bottom: 2px;
+  }
+  .sig-title {
+    font-family: 'Crimson Pro', serif;
+    font-size: 14px; color: var(--gold);
+    margin-bottom: 10px;
+    font-style: italic;
+  }
+  .sig-contacts {
+    display: flex; flex-wrap: wrap; gap: 14px;
+  }
+  .sig-contacts a {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; color: rgba(255,255,255,0.55);
+    text-decoration: none; letter-spacing: 0.5px;
+    transition: color 0.15s;
+  }
+  .sig-contacts a:hover { color: var(--gold); }
+
+  /* Loading */
+  .loading-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(10,22,40,0.85);
+    z-index: 999;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .loading-overlay.active { display: flex; }
+  .loading-spinner {
+    width: 48px; height: 48px;
+    border: 3px solid rgba(201,168,76,0.2);
+    border-top-color: var(--gold);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .loading-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px; color: var(--white);
+    letter-spacing: 0.5px;
+  }
+  .loading-sub {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; color: var(--gold);
+    letter-spacing: 2px; text-transform: uppercase;
+    opacity: 0.7;
+  }
+
+  /* Animations */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .proposal-doc.visible {
+    display: block;
+    animation: fadeInUp 0.4s ease forwards;
+  }
+
+  /* Print */
+  @media print {
+    .app-header, .input-panel { display: none !important; }
+    .app-body { display: block; padding: 0; }
+    .output-panel { width: 100%; }
+    .proposal-doc { box-shadow: none; border: none; }
+  }
+
+  @media (max-width: 860px) {
+    .app-body { grid-template-columns: 1fr; padding: 20px; }
+    .input-panel { position: static; }
+    .cover-meta { grid-template-columns: 1fr 1fr; }
+    .info-card-grid, .pillar-grid { grid-template-columns: 1fr; }
+    .fee-grid { grid-template-columns: 1fr 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header class="app-header">
+  <div class="header-inner">
+    <div class="logo-block">
+      <div class="logo-emblem">SCG</div>
+      <div class="logo-text">
+        <h1>Shiva Consultancy Group</h1>
+        <p>Proposal Intelligence Platform</p>
+      </div>
+    </div>
+    <div class="header-tag">AI-Powered · Premium Advisory</div>
+  </div>
+</header>
+
+<div class="app-body">
+
+  <!-- INPUT PANEL -->
+  <aside class="input-panel">
+    <div class="panel-head">
+      <div class="panel-head-dot"></div>
+      <h2>Engagement Parameters</h2>
+    </div>
+    <div class="panel-body">
+
+      <div class="field-group">
+        <label>Client Name <span>*</span></label>
+        <input type="text" id="clientName" placeholder="e.g. Rajasthan Solar Infrastructure Ltd." />
+      </div>
+      <div class="field-group">
+        <label>Sector <span>*</span></label>
+        <input type="text" id="sector" placeholder="e.g. Renewable Energy / MSME / Agribusiness" />
+      </div>
+      <div class="field-group">
+        <label>Requirement <span>*</span></label>
+        <input type="text" id="requirement" placeholder="e.g. Project Finance & DPR Preparation" />
+      </div>
+      <div class="field-group">
+        <label>Deal / Project Size <span>*</span></label>
+        <input type="text" id="dealSize" placeholder="e.g. ₹45 Crore" />
+      </div>
+      <div class="field-group">
+        <label>Problem Statement <span>*</span></label>
+        <textarea id="problem" placeholder="Describe the core challenge or pain point the client faces..."></textarea>
+      </div>
+      <div class="field-group">
+        <label>Objective <span>*</span></label>
+        <textarea id="objective" placeholder="What outcome does the client want to achieve?"></textarea>
+      </div>
+      <div class="field-group">
+        <label>Engagement Timeline <span>*</span></label>
+        <input type="text" id="timeline" placeholder="e.g. 3 months / Q1–Q2 2026" />
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="fee-selector">
+        <label>Engagement Type (Select Applicable)</label>
+        <div class="fee-grid" id="feeGrid">
+          <div class="fee-option" data-type="Telephonic Consulting" data-inr="₹2,500/min" data-usd="~$30/min" data-basis="Min. 10 min">
+            <div class="fee-name">Telephonic</div>
+            <div class="fee-inr">₹2,500/min</div>
+            <div class="fee-usd">~$30/min</div>
+          </div>
+          <div class="fee-option" data-type="Hourly Consulting" data-inr="₹90,000/hr" data-usd="~$1,000/hr" data-basis="Strategic advisory">
+            <div class="fee-name">Hourly</div>
+            <div class="fee-inr">₹90,000/hr</div>
+            <div class="fee-usd">~$1,000/hr</div>
+          </div>
+          <div class="fee-option" data-type="Daily Consulting" data-inr="₹5,00,000/day" data-usd="~$5,600/day" data-basis="8 hours">
+            <div class="fee-name">Daily</div>
+            <div class="fee-inr">₹5,00,000/day</div>
+            <div class="fee-usd">~$5,600/day</div>
+          </div>
+          <div class="fee-option" data-type="Weekly Assignment" data-inr="₹15,00,000" data-usd="~$17,000/wk" data-basis="~4 EMD">
+            <div class="fee-name">Weekly</div>
+            <div class="fee-inr">₹15,00,000</div>
+            <div class="fee-usd">~$17,000/wk</div>
+          </div>
+          <div class="fee-option" data-type="Monthly Assignment" data-inr="₹48,00,000" data-usd="~$53,500/mo" data-basis="~16 EMD">
+            <div class="fee-name">Monthly</div>
+            <div class="fee-inr">₹48,00,000</div>
+            <div class="fee-usd">~$53,500/mo</div>
+          </div>
+          <div class="fee-option" data-type="Quarterly Assignment" data-inr="₹1.25 Cr" data-usd="~$1,39,000" data-basis="~50 EMD">
+            <div class="fee-name">Quarterly</div>
+            <div class="fee-inr">₹1.25 Cr</div>
+            <div class="fee-usd">~$1,39,000</div>
+          </div>
+          <div class="fee-option" data-type="Half-Yearly Assignment" data-inr="₹2.25 Cr" data-usd="~$2,50,000" data-basis="~100 EMD">
+            <div class="fee-name">Half-Yearly</div>
+            <div class="fee-inr">₹2.25 Cr</div>
+            <div class="fee-usd">~$2,50,000</div>
+          </div>
+          <div class="fee-option" data-type="Yearly Retainership" data-inr="₹4.25 Cr" data-usd="~$4,75,000" data-basis="~200 EMD">
+            <div class="fee-name">Yearly</div>
+            <div class="fee-inr">₹4.25 Cr</div>
+            <div class="fee-usd">~$4,75,000</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <button class="btn-generate" onclick="generateProposal()">
+        <span>◆</span> Generate Proposal
+      </button>
+      <button class="btn-print" onclick="window.print()">⎙ Print / Save as PDF</button>
+    </div>
+  </aside>
+
+  <!-- OUTPUT PANEL -->
+  <main class="output-panel">
+    <div class="empty-state" id="emptyState">
+      <div class="empty-icon">◆</div>
+      <h3>Ready to Generate</h3>
+      <p>Fill in the engagement parameters on the left and click<br><strong>Generate Proposal</strong> to produce your premium SCG document.</p>
+    </div>
+
+    <div class="proposal-doc" id="proposalDoc">
+
+      <!-- Cover -->
+      <div class="proposal-cover">
+        <div class="confidential-badge">Strictly Private & Confidential</div>
+        <div class="cover-label">Consulting Proposal · Shiva Consultancy Group</div>
+        <div class="cover-title" id="coverTitle">Strategic Advisory Proposal</div>
+        <div class="cover-subtitle" id="coverSubtitle">Prepared exclusively for [Client]</div>
+        <div class="cover-meta">
+          <div class="cover-meta-item">
+            <label>Prepared For</label>
+            <span id="metaClient">—</span>
+          </div>
+          <div class="cover-meta-item">
+            <label>Sector</label>
+            <span id="metaSector">—</span>
+          </div>
+          <div class="cover-meta-item">
+            <label>Deal Size</label>
+            <span id="metaDeal">—</span>
+          </div>
+          <div class="cover-meta-item">
+            <label>Engagement Type</label>
+            <span id="metaEngagement">—</span>
+          </div>
+          <div class="cover-meta-item">
+            <label>Timeline</label>
+            <span id="metaTimeline">—</span>
+          </div>
+          <div class="cover-meta-item">
+            <label>Proposal Date</label>
+            <span id="metaDate">—</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Proposal Body -->
+      <div class="proposal-content" id="proposalContent">
+        <!-- Sections injected by JS -->
+      </div>
+
+      <!-- Closing -->
+      <div class="proposal-closing">
+        <div class="closing-text" id="closingText">
+          "We look forward to partnering with you on this mandate and remain committed to delivering measurable outcomes with institutional rigour."
+        </div>
+        <div class="sig-block">
+          <div class="sig-logo">SCG</div>
+          <div class="sig-details">
+            <div class="sig-name">Rakesh Jha</div>
+            <div class="sig-title">Co-Founder & Mentor — Shiva Consultancy Group</div>
+            <div class="sig-contacts">
+              <a href="mailto:rksjha@live.in">✉ rksjha@live.in</a>
+              <a href="tel:+919979021275">📱 +91 9979021275</a>
+              <a href="https://www.shivagroup.org.in" target="_blank">🌐 shivagroup.org.in</a>
+              <a href="https://linkedin.com/in/india/rksjha" target="_blank">in /india/rksjha</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /proposal-doc -->
+  </main>
+</div>
+
+<!-- Loading Overlay -->
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="loading-spinner"></div>
+  <div class="loading-text">Drafting Your Proposal</div>
+  <div class="loading-sub">SCG Intelligence Engine · Structuring Sections</div>
+</div>
+
+<script>
+  // Fee selection
+  document.querySelectorAll('.fee-option').forEach(opt => {
+    opt.addEventListener('click', function() {
+      document.querySelectorAll('.fee-option').forEach(o => o.classList.remove('active'));
+      this.classList.add('active');
+    });
+  });
+
+  function getSelectedFee() {
+    const active = document.querySelector('.fee-option.active');
+    if (!active) return null;
+    return {
+      type: active.dataset.type,
+      inr: active.dataset.inr,
+      usd: active.dataset.usd,
+      basis: active.dataset.basis
+    };
+  }
+
+  function today() {
+    return new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
+  }
+
+  function refNo() {
+    const d = new Date();
+    return `SCG/PROP/${d.getFullYear()}/${String(d.getMonth()+1).padStart(2,'0')}${String(d.getDate()).padStart(2,'0')}/${Math.floor(Math.random()*900+100)}`;
+  }
+
+  function section(num, title, bodyHTML) {
+    return `
+      <div class="section-block">
+        <div class="section-number">Section ${num}</div>
+        <div class="section-title">${title}</div>
+        <div class="section-body">${bodyHTML}</div>
+      </div>`;
+  }
+
+  function list(items) {
+    return `<ul class="scg-list">${items.map(i=>`<li>${i}</li>`).join('')}</ul>`;
+  }
+
+  function subHead(t) {
+    return `<div class="sub-heading">${t}</div>`;
+  }
+
+  function highlight(txt) {
+    return `<div class="highlight-box">${txt}</div>`;
+  }
+
+  function infoCards(items) {
+    return `<div class="info-card-grid">${items.map(i=>`
+      <div class="info-card">
+        <div class="info-card-label">${i.label}</div>
+        <div class="info-card-value">${i.value}</div>
+      </div>`).join('')}</div>`;
+  }
+
+  async function generateProposal() {
+    const client = document.getElementById('clientName').value.trim();
+    const sector = document.getElementById('sector').value.trim();
+    const requirement = document.getElementById('requirement').value.trim();
+    const dealSize = document.getElementById('dealSize').value.trim();
+    const problem = document.getElementById('problem').value.trim();
+    const objective = document.getElementById('objective').value.trim();
+    const timeline = document.getElementById('timeline').value.trim();
+    const fee = getSelectedFee();
+
+    if (!client || !sector || !requirement) {
+      alert('Please fill in at least Client Name, Sector, and Requirement.');
+      return;
+    }
+
+    // Show loading
+    document.getElementById('loadingOverlay').classList.add('active');
+
+    // Simulate brief processing delay for UX
+    await new Promise(r => setTimeout(r, 1400));
+
+    // --- Populate Cover ---
+    document.getElementById('coverTitle').textContent = `${requirement} — Strategic Advisory Proposal`;
+    document.getElementById('coverSubtitle').textContent = `Prepared exclusively for ${client}`;
+    document.getElementById('metaClient').textContent = client;
+    document.getElementById('metaSector').textContent = sector;
+    document.getElementById('metaDeal').textContent = dealSize || 'To Be Confirmed';
+    document.getElementById('metaEngagement').textContent = fee ? fee.type : 'To Be Discussed';
+    document.getElementById('metaTimeline').textContent = timeline || 'To Be Finalised';
+    document.getElementById('metaDate').textContent = today();
+
+    // --- Reference number in closing ---
+    document.getElementById('closingText').innerHTML =
+      `"SCG brings to this mandate a rare combination of strategic depth, regulatory mastery, and execution discipline — 
+      honed across hundreds of institutional and corporate engagements PAN India. We look forward to partnering 
+      with <strong>${client}</strong> and remain committed to delivering measurable, sustainable outcomes with 
+      the highest standards of institutional rigour."<br><br>
+      <span style="font-family:'DM Mono',monospace;font-size:11px;color:rgba(201,168,76,0.6);letter-spacing:1px;">
+      Ref: ${refNo()} &nbsp;·&nbsp; Valid for 30 days from ${today()}</span>`;
+
+    // --- Build All 9 Sections ---
+    const feeTableRows = [
+      ['Telephonic Consulting', '₹2,500 / min', '~$30/min', 'Min. 10 min'],
+      ['Hourly Consulting', '₹90,000 / hour', '~$1,000/hr', 'Strategic advisory'],
+      ['Daily Consulting', '₹5,00,000 / day', '~$5,600/day', '8 hours'],
+      ['Weekly Assignment', '₹15,00,000', '~$17,000/week', '~4 EMD'],
+      ['Monthly Assignment', '₹48,00,000', '~$53,500/month', '~16 EMD'],
+      ['Quarterly Assignment', '₹1.25 Cr', '~$1,39,000', '~50 EMD'],
+      ['Half-Yearly Assignment', '₹2.25 Cr', '~$2,50,000', '~100 EMD'],
+      ['Yearly Retainership', '₹4.25 Cr', '~$4,75,000', '~200 EMD'],
+    ];
+
+    const feeTableHTML = `
+      <div class="fee-table-wrap">
+        <table class="fee-table">
+          <thead><tr>
+            <th>Engagement Type</th>
+            <th>Base Rate (INR)</th>
+            <th>USD Equiv.</th>
+            <th>Basis</th>
+          </tr></thead>
+          <tbody>
+            ${feeTableRows.map(r => `
+              <tr class="${fee && r[0]===fee.type ? 'highlighted' : ''}">
+                <td>${r[0]}${fee && r[0]===fee.type ? ' <span style="color:var(--gold);font-size:12px;">◆ Applicable</span>' : ''}</td>
+                <td class="inr-cell">${r[1]}</td>
+                <td>${r[2]}</td>
+                <td style="font-family:'DM Mono',monospace;font-size:12px;color:var(--text-muted);">${r[3]}</td>
+              </tr>`).join('')}
+          </tbody>
+        </table>
+      </div>`;
+
+    const phases = buildTimeline(timeline, requirement);
+
+    const timelineTableHTML = `
+      <table class="timeline-table">
+        <thead><tr><th>Phase</th><th>Milestone</th><th>Deliverable</th><th>Duration</th></tr></thead>
+        <tbody>
+          ${phases.map(p=>`
+            <tr>
+              <td>${p.phase}</td>
+              <td>${p.milestone}</td>
+              <td>${p.deliverable}</td>
+              <td>${p.duration}</td>
+            </tr>`).join('')}
+        </tbody>
+      </table>`;
+
+    const pillarGrid = `
+      <div class="pillar-grid">
+        <div class="pillar-item">
+          <span class="pillar-icon">⚡</span>
+          <div class="pillar-title">PAN India Reach</div>
+          <div class="pillar-desc">Institutional presence across all major Indian states with network depth in PSU, banking, and government ecosystems.</div>
+        </div>
+        <div class="pillar-item">
+          <span class="pillar-icon">⚖</span>
+          <div class="pillar-title">Legal & Regulatory Mastery</div>
+          <div class="pillar-desc">Deep expertise in SARFAESI, IBC, RBI, SEBI, MCA, GST, and sector-specific compliance frameworks.</div>
+        </div>
+        <div class="pillar-item">
+          <span class="pillar-icon">🌿</span>
+          <div class="pillar-title">ESG & Sustainability</div>
+          <div class="pillar-desc">Certified GHG inventory, carbon credit structuring, BRSR/GRI reporting, and environmental compliance for mines and industries.</div>
+        </div>
+        <div class="pillar-item">
+          <span class="pillar-icon">🏗</span>
+          <div class="pillar-title">Project Finance & DPR</div>
+          <div class="pillar-desc">Proven track record in preparing bankable DPRs, CMA data, and loan proposals accepted by leading PSU and private banks.</div>
+        </div>
+        <div class="pillar-item">
+          <span class="pillar-icon">🎯</span>
+          <div class="pillar-title">Tender & PSU Advisory</div>
+          <div class="pillar-desc">SAIL, ONGC, NTPC, state government tenders — from bid strategy and pre-bid clarifications to sub-contractor evaluation.</div>
+        </div>
+        <div class="pillar-item">
+          <span class="pillar-icon">🌱</span>
+          <div class="pillar-title">MSME & Startup Mentoring</div>
+          <div class="pillar-desc">End-to-end mentoring from business validation to institutional funding, scheme navigation, and scale-up strategy.</div>
+        </div>
+      </div>`;
+
+    const content = `
+      ${section(1, 'Executive Summary',
+        `${highlight(`This proposal presents Shiva Consultancy Group's (SCG) strategic advisory mandate for <strong>${client}</strong> in the <strong>${sector}</strong> sector, addressing the critical requirement of <strong>${requirement}</strong> with a project size of <strong>${dealSize || 'to be confirmed'}</strong>.`)}
+        <p>SCG, led by <strong>Rakesh Jha — Co-Founder & Mentor</strong>, is a premium advisory firm delivering cutting-edge, personalised consultancy across project finance, ESG, legal enforcement, institutional tenders, and business strategy. Operating PAN India with global advisory reach, SCG brings institutional rigour to every engagement.</p>
+        <p>This engagement is designed to deliver <strong>tangible, measurable outcomes</strong> within the stipulated timeline of <strong>${timeline || 'to be agreed'}</strong> — combining deep domain expertise with hands-on execution capability unique to SCG's advisory model.</p>
+        ${infoCards([
+          {label: 'Client', value: client},
+          {label: 'Sector', value: sector},
+          {label: 'Requirement', value: requirement},
+          {label: 'Deal / Project Size', value: dealSize || 'TBC'},
+          {label: 'Proposed Timeline', value: timeline || 'TBC'},
+          {label: 'Engagement Type', value: fee ? fee.type : 'To Be Discussed'}
+        ])}`
+      )}
+
+      ${section(2, 'Understanding of Client Situation',
+        `<p>${problem || `${client} is operating within a dynamic and competitive environment in the ${sector} sector, facing complex challenges that require strategic intervention at both advisory and execution levels.`}</p>
+        ${subHead('Core Problem Identified')}
+        <p>${problem || 'The client faces a critical gap between its current operational posture and the strategic outcome required — necessitating structured advisory, regulatory navigation, and institutional-grade execution support.'}</p>
+        ${subHead('Key Risk Dimensions')}
+        ${list([
+          `<strong>Strategic Risk:</strong> Absence of a structured roadmap aligned with regulatory and market realities in the ${sector} sector`,
+          `<strong>Regulatory Risk:</strong> Evolving compliance landscape requiring real-time advisory intervention and proactive risk mapping`,
+          `<strong>Execution Risk:</strong> Gap between strategic intent and ground-level implementation capability, particularly in institutional engagements`,
+          `<strong>Financial Risk:</strong> Suboptimal capital structuring or incomplete documentation may hinder access to institutional funding for the ${dealSize || 'proposed'} project`,
+          `<strong>Reputational Risk:</strong> Any compliance or delivery lapse in a mandate of this scale carries significant institutional and market consequences`
+        ])}`
+      )}
+
+      ${section(3, 'Proposed Strategic Approach',
+        `${highlight(`SCG's methodology is built on the principle of <em>Deep Diagnosis Before Prescription</em> — every recommendation is grounded in exhaustive analysis of client documents, sector context, regulatory frameworks, and market dynamics.`)}
+        ${subHead('Phase 1 — Situation Assessment & Intelligence Gathering')}
+        <p>Comprehensive review of all client documents, financial statements, existing contracts, regulatory filings, and market position. SCG will conduct structured diagnostic sessions with key client stakeholders to map the full landscape of challenges and opportunities.</p>
+        ${subHead('Phase 2 — Strategic Framework Design')}
+        <p>Development of a bespoke strategic framework addressing the ${requirement} requirement — calibrated to Indian regulatory norms (RBI, SEBI, MCA, sector-specific regulations) and anchored to the client's financial capacity and timeline constraints.</p>
+        ${subHead('Phase 3 — Advisory & Execution Support')}
+        <p>Hands-on advisory support throughout implementation — including document preparation, institutional interfaces, regulatory submissions, and stakeholder negotiations. SCG does not merely advise; we execute alongside the client.</p>
+        ${subHead('Phase 4 — Review, Compliance & Closure')}
+        <p>Structured review checkpoints, compliance verification, and formal closure documentation — ensuring all deliverables are institutionally sound and legally defensible.</p>`
+      )}
+
+      ${section(4, 'Scope of Services',
+        `${subHead('Core Deliverables')}
+        ${list([
+          `<strong>Strategic Assessment Report:</strong> Comprehensive diagnosis of client situation, risk matrix, and opportunity mapping specific to ${sector}`,
+          `<strong>${requirement} — Advisory & Execution:</strong> End-to-end advisory support covering analysis, structuring, documentation, and institutional interface`,
+          `<strong>Regulatory Compliance Review:</strong> Assessment against applicable Indian frameworks — RBI, SEBI, MCA, sector-specific regulations, ESG/GHG norms as applicable`,
+          `<strong>Documentation Suite:</strong> All primary and ancillary documents required for institutional submission, regulatory filings, or transaction closure`,
+          `<strong>Stakeholder Interface Management:</strong> Representation and advisory support in meetings with banks, PSUs, regulatory bodies, and institutional investors`,
+          `<strong>Progress Reporting:</strong> Structured milestone reports, escalation protocols, and executive briefings at defined intervals`,
+          `<strong>Risk Mitigation Advisory:</strong> Proactive identification and management of legal, financial, and operational risks throughout the engagement`
+        ])}
+        ${subHead('Exclusions (Unless Separately Mandated)')}
+        ${list([
+          'Accounting, auditing, or tax advisory services',
+          'Legal representation in courts or quasi-judicial forums',
+          'Implementation of IT or ERP systems',
+          'Procurement or vendor management beyond advisory scope'
+        ])}`
+      )}
+
+      ${section(5, 'Engagement Model',
+        `${subHead('Team Structure')}
+        ${infoCards([
+          {label: 'Lead Advisor & Mentor', value: 'Rakesh Jha — Co-Founder & Mentor, SCG'},
+          {label: 'Domain Specialists', value: 'Sector-specific experts deployed based on engagement phase'},
+          {label: 'Legal & Compliance Support', value: 'Empanelled legal advisors for regulatory and contractual matters'},
+          {label: 'Research & Documentation', value: 'Dedicated research and documentation support team'}
+        ])}
+        ${subHead('Mode of Engagement')}
+        ${list([
+          `<strong>Primary Mode:</strong> ${fee && fee.type.includes('Telephonic') ? 'Telephonic / Virtual Consulting' : fee && fee.type.includes('Daily') ? 'On-site consulting at client premises or SCG Ahmedabad office' : 'Hybrid — combination of on-site visits, virtual advisory, and document exchange'}`,
+          `<strong>Reporting Cadence:</strong> Weekly progress updates, fortnightly milestone reviews, monthly executive briefings`,
+          `<strong>Escalation Protocol:</strong> Direct access to Rakesh Jha for all strategic decisions and critical interventions`,
+          `<strong>Client Responsibilities:</strong> Timely provision of documents, access to key personnel, and prompt approvals at decision gates`,
+          `<strong>Communication:</strong> Dedicated channel via email and WhatsApp for real-time advisory queries`
+        ])}`
+      )}
+
+      ${section(6, 'Indicative Commercial Structure',
+        `<p>SCG's fee structure is calibrated to the quantum of effort, complexity of mandate, and level of senior advisory engagement deployed. All fees are exclusive of GST @ 18% and out-of-pocket expenses billed at actuals.</p>
+        ${feeTableHTML}
+        ${subHead('Standard Commercial Terms')}
+        ${list([
+          `<strong>GST:</strong> All fees exclusive of GST @ 18% as applicable under Indian tax law`,
+          `<strong>Out-of-Pocket Expenses:</strong> Travel (outside Ahmedabad — AC 2-tier / economy air), accommodation, and official disbursements billed at actuals with receipts`,
+          `<strong>Payment Schedule:</strong> As mutually agreed — typically advance retainer on engagement, balance on milestones`,
+          `<strong>Invoicing:</strong> GST-compliant tax invoices raised on milestone completion or monthly (for retainer engagements)`,
+          `<strong>Governing Law:</strong> State of Gujarat, India · Jurisdiction: Ahmedabad`,
+          `<strong>Proposal Validity:</strong> 30 days from date of issue`
+        ])}
+        ${highlight('The final commercial structure will be mutually agreed upon execution of the Engagement Mandate / MOU, taking into account the precise scope, complexity, and duration confirmed at that stage.')}`
+      )}
+
+      ${section(7, 'Timeline & Milestones',
+        `<p>The following indicative timeline is structured for an engagement of <strong>${timeline || 'the proposed duration'}</strong>. Exact milestone dates will be finalised upon execution of the mandate letter.</p>
+        ${timelineTableHTML}
+        <p style="margin-top:14px;font-size:14px;color:var(--text-muted);font-family:'DM Mono',monospace;letter-spacing:0.5px;">
+          Note: Timeline assumes timely client cooperation, document submission, and approval at each decision gate.
+        </p>`
+      )}
+
+      ${section(8, 'Why Shiva Consultancy Group',
+        `${highlight('SCG is not a conventional advisory firm. We are a strategic partner that combines boardroom-level thinking with on-ground execution — ensuring that strategy does not remain on paper.')}
+        ${pillarGrid}
+        ${subHead('The Rakesh Jha Advantage')}
+        ${list([
+          `<strong>Mentor-Led Advisory:</strong> Rakesh personally leads every significant engagement — bringing decades of cross-sector expertise and deep institutional relationships`,
+          `<strong>Personalised Engagement:</strong> No templated solutions. Every SCG mandate is bespoke — designed around the specific context, constraints, and objectives of the client`,
+          `<strong>Regulatory Intelligence:</strong> Real-time awareness of Indian regulatory developments across RBI, SEBI, MCA, ESG, PSU procurement, and sector-specific frameworks`,
+          `<strong>Network Leverage:</strong> Access to a curated network of banks, PSUs, institutional investors, government bodies, and domain specialists PAN India`,
+          `<strong>Track Record:</strong> Demonstrated success across SARFAESI enforcement, institutional tender wins, project finance closures, and ESG advisory mandates`
+        ])}`
+      )}
+
+      ${section(9, 'Closing Statement',
+        `<p>Shiva Consultancy Group is uniquely positioned to deliver on this mandate for <strong>${client}</strong> — bringing to bear the full weight of SCG's advisory depth, regulatory expertise, and execution capability in the <strong>${sector}</strong> sector.</p>
+        <p>The objective of <strong>${objective || 'achieving the stated business outcome with institutional rigour'}</strong> is not merely aspirational — it is a commitment SCG makes to every client. Our engagement model ensures that Rakesh Jha's personal mentorship and strategic intelligence are available to the client at every critical juncture of this engagement.</p>
+        ${highlight(`We invite ${client} to initiate this partnership by executing the Engagement Mandate. SCG is ready to commence work within 48 hours of mandate confirmation.`)}
+        ${subHead('Immediate Next Steps')}
+        ${list([
+          `Review and confirm this proposal within the 30-day validity window`,
+          `Schedule a strategic alignment call with Rakesh Jha: <strong>+91 9979021275</strong> or <strong>rksjha@live.in</strong>`,
+          `Execute the Engagement Mandate / MOU to formalise the advisory relationship`,
+          `Submit initial document set to SCG for Phase 1 diagnostic commencement`,
+          `SCG to deploy advisory team and initiate engagement within 48 hours of mandate execution`
+        ])}`
+      )}
+    `;
+
+    document.getElementById('proposalContent').innerHTML = content;
+
+    // Hide loading, show proposal
+    document.getElementById('loadingOverlay').classList.remove('active');
+    document.getElementById('emptyState').style.display = 'none';
+    const doc = document.getElementById('proposalDoc');
+    doc.style.display = 'block';
+    doc.classList.add('visible');
+    doc.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function buildTimeline(timelineStr, requirement) {
+    return [
+      { phase: 'Phase 01', milestone: 'Engagement Kick-Off', deliverable: 'Signed mandate, document checklist, team deployment', duration: 'Week 1' },
+      { phase: 'Phase 02', milestone: 'Diagnostic & Assessment', deliverable: 'Situation Analysis Report, Risk Matrix, Opportunity Map', duration: 'Weeks 2–3' },
+      { phase: 'Phase 03', milestone: 'Strategy Design', deliverable: 'Strategic Framework Document, Regulatory Compliance Map', duration: 'Weeks 3–4' },
+      { phase: 'Phase 04', milestone: 'Advisory & Execution', deliverable: `${requirement} — Primary deliverables, institutional documentation`, duration: 'Weeks 4–8' },
+      { phase: 'Phase 05', milestone: 'Review & Refinement', deliverable: 'Stakeholder review, revision cycles, regulatory verification', duration: 'Weeks 8–9' },
+      { phase: 'Phase 06', milestone: 'Final Delivery & Closure', deliverable: 'Final deliverable set, compliance certification, closure report', duration: `Week 10 / ${timelineStr || 'As agreed'}` },
+    ];
+  }
+</script>
+</body>
+</html>

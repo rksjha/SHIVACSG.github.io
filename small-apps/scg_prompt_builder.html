@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SCG Daily Post Prompt Builder</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --deep-blue: #0B1F4A;
+    --mid-blue: #1A3A6E;
+    --steel-blue: #2B5598;
+    --gold: #C89B3C;
+    --gold-light: #E8C068;
+    --gold-pale: #FDF5E4;
+    --cream: #FAFAF7;
+    --ink: #0D0D0D;
+    --muted: #6B7280;
+    --border: #E2DDD6;
+    --white: #FFFFFF;
+    --success: #1B6B4A;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    min-height: 100vh;
+  }
+
+  /* ─── Header ─── */
+  .header {
+    background: var(--deep-blue);
+    padding: 28px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 3px solid var(--gold);
+  }
+  .header-brand {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .header-logo {
+    width: 48px;
+    height: 48px;
+    background: var(--gold);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    font-size: 20px;
+    color: var(--deep-blue);
+    letter-spacing: -1px;
+  }
+  .header-text h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: 0.3px;
+  }
+  .header-text p {
+    font-size: 12px;
+    color: var(--gold-light);
+    font-weight: 300;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+  .header-badge {
+    background: rgba(200,155,60,0.15);
+    border: 1px solid var(--gold);
+    color: var(--gold-light);
+    font-size: 11px;
+    font-weight: 500;
+    padding: 6px 14px;
+    border-radius: 20px;
+    letter-spacing: 0.8px;
+  }
+
+  /* ─── Layout ─── */
+  .container {
+    display: grid;
+    grid-template-columns: 420px 1fr;
+    min-height: calc(100vh - 91px);
+  }
+
+  /* ─── Left Panel ─── */
+  .panel-left {
+    background: var(--white);
+    border-right: 1px solid var(--border);
+    padding: 32px;
+    overflow-y: auto;
+    max-height: calc(100vh - 91px);
+    position: sticky;
+    top: 0;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--deep-blue);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+  .form-label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--muted);
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .form-input, .form-select, .form-textarea {
+    width: 100%;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: var(--ink);
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 14px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+    appearance: none;
+  }
+  .form-input:focus, .form-select:focus, .form-textarea:focus {
+    border-color: var(--steel-blue);
+    box-shadow: 0 0 0 3px rgba(43,85,152,0.08);
+    background: var(--white);
+  }
+  .form-textarea {
+    resize: vertical;
+    min-height: 80px;
+    line-height: 1.5;
+  }
+
+  /* Pill toggles */
+  .pill-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .pill {
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    border: 1px solid var(--border);
+    background: var(--cream);
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.18s;
+    user-select: none;
+  }
+  .pill.active {
+    background: var(--deep-blue);
+    color: var(--gold-light);
+    border-color: var(--deep-blue);
+  }
+  .pill:hover:not(.active) {
+    border-color: var(--steel-blue);
+    color: var(--steel-blue);
+  }
+
+  /* Day selector */
+  .day-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+  .day-card {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 8px;
+    cursor: pointer;
+    transition: all 0.18s;
+    text-align: center;
+    background: var(--cream);
+  }
+  .day-card.active {
+    background: var(--deep-blue);
+    border-color: var(--deep-blue);
+  }
+  .day-card .day-name {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .day-card.active .day-name { color: var(--gold-light); }
+  .day-card .day-topic {
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 3px;
+    line-height: 1.3;
+  }
+  .day-card.active .day-topic { color: rgba(232,192,104,0.8); }
+
+  /* Tone slider */
+  .tone-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  input[type=range] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 4px;
+    border-radius: 2px;
+    background: linear-gradient(to right, var(--steel-blue) 0%, var(--steel-blue) 50%, var(--border) 50%, var(--border) 100%);
+    outline: none;
+  }
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--deep-blue);
+    border: 2px solid var(--gold);
+    cursor: pointer;
+  }
+
+  .generate-btn {
+    width: 100%;
+    background: var(--deep-blue);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    padding: 14px;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    transition: all 0.2s;
+    margin-top: 24px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .generate-btn::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--gold);
+  }
+  .generate-btn:hover { background: var(--mid-blue); transform: translateY(-1px); }
+  .generate-btn:active { transform: translateY(0); }
+
+  /* ─── Right Panel ─── */
+  .panel-right {
+    padding: 32px 40px;
+    background: var(--cream);
+    overflow-y: auto;
+    max-height: calc(100vh - 91px);
+  }
+
+  .output-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+  }
+  .output-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--deep-blue);
+  }
+  .output-subtitle {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  .tab-bar {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0;
+  }
+  .tab {
+    font-size: 13px;
+    font-weight: 500;
+    padding: 10px 18px;
+    cursor: pointer;
+    color: var(--muted);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: all 0.18s;
+  }
+  .tab.active {
+    color: var(--deep-blue);
+    border-bottom-color: var(--gold);
+    font-weight: 600;
+  }
+  .tab:hover:not(.active) { color: var(--steel-blue); }
+
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* Prompt output box */
+  .prompt-box {
+    background: var(--deep-blue);
+    border-radius: 12px;
+    padding: 28px 32px;
+    position: relative;
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    line-height: 1.8;
+    color: #C8D8F0;
+    white-space: pre-wrap;
+    word-break: break-word;
+    min-height: 300px;
+  }
+  .prompt-box .highlight { color: var(--gold-light); font-weight: 500; }
+  .prompt-box .comment { color: #5A7090; font-style: italic; }
+  .prompt-box .variable { color: #7EC8A0; }
+
+  .copy-btn {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: rgba(200,155,60,0.15);
+    border: 1px solid var(--gold);
+    color: var(--gold-light);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    transition: all 0.18s;
+  }
+  .copy-btn:hover { background: rgba(200,155,60,0.3); }
+  .copy-btn.copied { background: rgba(27,107,74,0.3); border-color: #4CAF80; color: #7DD9A8; }
+
+  /* How-to tab */
+  .how-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+  }
+  .how-num {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--deep-blue);
+    color: var(--gold-light);
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .how-content h3 {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--deep-blue);
+    margin-bottom: 4px;
+  }
+  .how-content p {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+  .how-content code {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    padding: 2px 6px;
+    color: var(--steel-blue);
+  }
+
+  /* Hashtag pool tab */
+  .hashtag-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+  .ht {
+    background: var(--deep-blue);
+    color: var(--gold-light);
+    font-size: 12px;
+    font-weight: 500;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-family: 'DM Mono', monospace;
+  }
+  .ht-section-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 16px 0 8px;
+    width: 100%;
+  }
+
+  /* Info strip */
+  .info-strip {
+    background: var(--gold-pale);
+    border: 1px solid rgba(200,155,60,0.3);
+    border-radius: 8px;
+    padding: 14px 18px;
+    font-size: 13px;
+    color: var(--deep-blue);
+    line-height: 1.6;
+    margin-bottom: 20px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .info-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+
+  /* Divider */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 24px 0;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+  @media (max-width: 900px) {
+    .container { grid-template-columns: 1fr; }
+    .panel-left { max-height: none; position: static; }
+    .panel-right { max-height: none; }
+    .header { padding: 20px 24px; }
+    .header-badge { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-brand">
+    <div class="header-logo">SC<br><span style="font-size:10px;letter-spacing:0">G</span></div>
+    <div class="header-text">
+      <h1>Shiva Consultancy Group</h1>
+      <p>Daily Post Prompt Builder · AI Automation Suite</p>
+    </div>
+  </div>
+  <div class="header-badge">Master Prompt Generator</div>
+</header>
+
+<div class="container">
+
+  <!-- ─── LEFT PANEL ─── -->
+  <div class="panel-left">
+
+    <div class="section-title">Configure Your Post</div>
+
+    <div class="form-group">
+      <label class="form-label">Day of Week</label>
+      <div class="day-grid" id="dayGrid">
+        <div class="day-card active" data-day="monday">
+          <div class="day-name">Mon</div>
+          <div class="day-topic">MSME & Startup</div>
+        </div>
+        <div class="day-card" data-day="tuesday">
+          <div class="day-name">Tue</div>
+          <div class="day-topic">ESG & Carbon</div>
+        </div>
+        <div class="day-card" data-day="wednesday">
+          <div class="day-name">Wed</div>
+          <div class="day-topic">Case Study</div>
+        </div>
+        <div class="day-card" data-day="thursday">
+          <div class="day-name">Thu</div>
+          <div class="day-topic">Legal & Banking</div>
+        </div>
+        <div class="day-card" data-day="friday">
+          <div class="day-name">Fri</div>
+          <div class="day-topic">Tender & DPR</div>
+        </div>
+        <div class="day-card" data-day="saturday">
+          <div class="day-name">Sat</div>
+          <div class="day-topic">Thought Leader</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Post Format</label>
+      <div class="pill-group" id="formatPills">
+        <div class="pill active" data-val="linkedin_text">LinkedIn Text</div>
+        <div class="pill" data-val="carousel">Carousel Script</div>
+        <div class="pill" data-val="short_form">Short Post</div>
+        <div class="pill" data-val="thought_leadership">Opinion Piece</div>
+        <div class="pill" data-val="case_study">Case Study Hook</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Target Audience</label>
+      <div class="pill-group" id="audiencePills">
+        <div class="pill active" data-val="msme_owners">MSME Owners</div>
+        <div class="pill active" data-val="promoters">Promoters</div>
+        <div class="pill active" data-val="bankers">Bankers</div>
+        <div class="pill" data-val="startups">Startups</div>
+        <div class="pill" data-val="psus">PSU Officers</div>
+        <div class="pill" data-val="nris">NRI Investors</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Today's Trending Topic / News Hook <span style="color:var(--muted);font-weight:400">(optional)</span></label>
+      <input class="form-input" id="topicInput" type="text" placeholder="e.g. RBI raises repo rate, new MSME scheme announced…">
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Specific Service to Promote <span style="color:var(--muted);font-weight:400">(optional)</span></label>
+      <select class="form-select" id="serviceSelect">
+        <option value="">Auto-select based on day</option>
+        <option value="bank_loan">Bank Loan Proposal / DPR</option>
+        <option value="sarfaesi">SARFAESI Enforcement</option>
+        <option value="esg">ESG / Carbon Advisory</option>
+        <option value="startup">Startup / MSME Consulting</option>
+        <option value="tender">Tender & Institutional Bids</option>
+        <option value="project_finance">Project Finance & Capital</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Tone</label>
+      <div class="tone-row">
+        <span>Authoritative</span>
+        <span id="toneLabel">Balanced</span>
+        <span>Conversational</span>
+      </div>
+      <input type="range" id="toneSlider" min="1" max="5" value="3" step="1">
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Include CTA</label>
+      <div class="pill-group" id="ctaPills">
+        <div class="pill active" data-val="dm_me">DM Me</div>
+        <div class="pill active" data-val="comment">Comment Below</div>
+        <div class="pill" data-val="website">Visit Website</div>
+        <div class="pill" data-val="call">Call Now</div>
+        <div class="pill" data-val="none">No CTA</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Number of Post Variants to Generate</label>
+      <select class="form-select" id="variantCount">
+        <option value="1">1 variant</option>
+        <option value="3" selected>3 variants</option>
+        <option value="5">5 variants</option>
+      </select>
+    </div>
+
+    <button class="generate-btn" onclick="generatePrompt()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+      Generate Master Prompt
+    </button>
+
+  </div>
+
+  <!-- ─── RIGHT PANEL ─── -->
+  <div class="panel-right">
+
+    <div class="output-header">
+      <div>
+        <div class="output-title">Your Master Prompt</div>
+        <div class="output-subtitle">Ready to paste into Claude, GPT-4o, or your automation tool</div>
+      </div>
+    </div>
+
+    <div class="tab-bar">
+      <div class="tab active" onclick="switchTab('prompt', this)">Prompt</div>
+      <div class="tab" onclick="switchTab('hashtags', this)">Hashtag Pool</div>
+      <div class="tab" onclick="switchTab('howto', this)">How to Use</div>
+    </div>
+
+    <!-- PROMPT TAB -->
+    <div id="tab-prompt" class="tab-content active">
+      <div class="info-strip">
+        <span class="info-icon">💡</span>
+        <span>Configure your settings on the left and click <strong>Generate Master Prompt</strong>. The output below is your ready-to-use Claude system prompt — paste it directly into Claude's system prompt field or your Make/n8n automation.</span>
+      </div>
+      <div class="prompt-box" id="promptOutput">
+<span class="comment"># ── Configure options on the left and click Generate ──</span>
+
+<span class="highlight">SCG Master Post Prompt will appear here.</span>
+
+<span class="comment">This prompt encodes your brand voice, service expertise,
+audience targeting, and daily content pillars into a
+single reusable instruction set for Claude.</span>
+      </div>
+    </div>
+
+    <!-- HASHTAGS TAB -->
+    <div id="tab-hashtags" class="tab-content">
+      <div class="info-strip">
+        <span class="info-icon">🏷️</span>
+        <span>Use 10–15 hashtags per post. Claude will auto-select the most relevant from this master pool based on the post topic. Copy the full pool into your prompt's reference section.</span>
+      </div>
+      <div class="hashtag-grid">
+        <span class="ht-section-label">Brand & Identity</span>
+        <div class="ht">#ShivaConsultancyGroup</div>
+        <div class="ht">#SCGAdvisory</div>
+        <div class="ht">#RakeshJha</div>
+        <div class="ht">#AhmedabadConsultant</div>
+        <div class="ht">#IndiaConsulting</div>
+        <div class="ht">#GujaratBusiness</div>
+
+        <span class="ht-section-label">MSME & Startup</span>
+        <div class="ht">#MSMEIndia</div>
+        <div class="ht">#MSMEFinance</div>
+        <div class="ht">#MSMEGrowth</div>
+        <div class="ht">#StartupIndia</div>
+        <div class="ht">#StartupFunding</div>
+        <div class="ht">#SmallBusiness</div>
+        <div class="ht">#EntrepreneurIndia</div>
+        <div class="ht">#BusinessGrowth</div>
+        <div class="ht">#SelfReliantIndia</div>
+
+        <span class="ht-section-label">Finance & Banking</span>
+        <div class="ht">#ProjectFinance</div>
+        <div class="ht">#BankLoan</div>
+        <div class="ht">#CapitalAdvisory</div>
+        <div class="ht">#NPA</div>
+        <div class="ht">#SARFAESI</div>
+        <div class="ht">#DebtResolution</div>
+        <div class="ht">#CreditManagement</div>
+        <div class="ht">#DPR</div>
+        <div class="ht">#WorkingCapital</div>
+        <div class="ht">#RBIPolicy</div>
+
+        <span class="ht-section-label">ESG & Sustainability</span>
+        <div class="ht">#ESGIndia</div>
+        <div class="ht">#Sustainability</div>
+        <div class="ht">#GreenFinance</div>
+        <div class="ht">#CarbonCredits</div>
+        <div class="ht">#NetZero</div>
+        <div class="ht">#ClimateAction</div>
+        <div class="ht">#GHGInventory</div>
+        <div class="ht">#CarbonSequestration</div>
+        <div class="ht">#RenewableEnergy</div>
+        <div class="ht">#ESGCompliance</div>
+
+        <span class="ht-section-label">Government & Tenders</span>
+        <div class="ht">#GovernmentTender</div>
+        <div class="ht">#PSUIndia</div>
+        <div class="ht">#InfrastructureIndia</div>
+        <div class="ht">#MakeInIndia</div>
+        <div class="ht">#AtmanirbharBharat</div>
+        <div class="ht">#GovtSchemes</div>
+        <div class="ht">#PLIScheme</div>
+
+        <span class="ht-section-label">Legal & Compliance</span>
+        <div class="ht">#ComplianceIndia</div>
+        <div class="ht">#LegalAdvisory</div>
+        <div class="ht">#InsolvencyLaw</div>
+        <div class="ht">#IBCIndia</div>
+        <div class="ht">#CorporateLaw</div>
+        <div class="ht">#RegulatoryCompliance</div>
+
+        <span class="ht-section-label">Reach & Discovery</span>
+        <div class="ht">#LinkedInIndia</div>
+        <div class="ht">#BusinessStrategy</div>
+        <div class="ht">#CFO</div>
+        <div class="ht">#CEO</div>
+        <div class="ht">#FinanceLeaders</div>
+        <div class="ht">#ProfessionalServices</div>
+        <div class="ht">#Agribusiness</div>
+        <div class="ht">#PanIndiaServices</div>
+      </div>
+    </div>
+
+    <!-- HOW-TO TAB -->
+    <div id="tab-howto" class="tab-content">
+      <div class="how-card">
+        <div class="how-num">1</div>
+        <div class="how-content">
+          <h3>Copy the generated prompt</h3>
+          <p>Click the <strong>Copy</strong> button in the top-right of the Prompt tab. This is your master instruction set for Claude.</p>
+        </div>
+      </div>
+      <div class="how-card">
+        <div class="how-num">2</div>
+        <div class="how-content">
+          <h3>Paste into Claude as a System Prompt</h3>
+          <p>In Claude.ai → Settings → Custom Instructions, paste this as your default persona. Or in your Make/n8n HTTP module, pass it as the <code>system</code> field in the API call body.</p>
+        </div>
+      </div>
+      <div class="how-card">
+        <div class="how-num">3</div>
+        <div class="how-content">
+          <h3>Trigger daily with a simple user message</h3>
+          <p>Every morning at 7 AM, your Make automation sends Claude just one line: <code>"Generate today's social media posts."</code> — the system prompt handles everything else.</p>
+        </div>
+      </div>
+      <div class="how-card">
+        <div class="how-num">4</div>
+        <div class="how-content">
+          <h3>Feed Claude a trending topic (optional)</h3>
+          <p>For maximum relevance, have Make first call Perplexity AI or a Google News RSS feed, extract the top headline in your domain, then pass it to Claude as: <code>"Today's news hook: [headline]. Generate posts."</code></p>
+        </div>
+      </div>
+      <div class="how-card">
+        <div class="how-num">5</div>
+        <div class="how-content">
+          <h3>Auto-send to Publer or Buffer</h3>
+          <p>Connect the Claude output to Publer's API. Make will parse Claude's 3 post variants and schedule them for optimal times: 7:30 AM, 12:30 PM, and 6:30 PM IST.</p>
+        </div>
+      </div>
+      <div class="how-card">
+        <div class="how-num">6</div>
+        <div class="how-content">
+          <h3>Weekly review — 20 minutes only</h3>
+          <p>Every Sunday, review the week's queue in Publer. Approve, tweak, or swap. The system runs itself; you just stay in editorial control.</p>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+      <div class="info-strip">
+        <span class="info-icon">⚡</span>
+        <span><strong>Pro tip:</strong> Generate separate prompts for each day of the week using different configurations, then load the right one in your automation based on the day. This ensures Monday's MSME content is perfectly tuned differently from Friday's tender alerts.</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  // ─── State ───
+  let state = {
+    day: 'monday',
+    formats: ['linkedin_text'],
+    audiences: ['msme_owners', 'promoters', 'bankers'],
+    topic: '',
+    service: '',
+    tone: 3,
+    ctas: ['dm_me', 'comment'],
+    variants: '3'
+  };
+
+  const dayConfig = {
+    monday:    { label: 'Monday',    pillar: 'MSME Finance & Startup Growth',         focus: 'Help small business owners, promoters, and entrepreneurs understand financing options, government schemes, and growth strategies. Position SCG as the trusted advisor for MSME and startup challenges.' },
+    tuesday:   { label: 'Tuesday',   pillar: 'ESG, Carbon & Sustainability',           focus: 'Educate decision-makers on ESG compliance mandates, GHG inventory, carbon credits, and sustainability reporting. Position SCG as India\'s frontline ESG advisory for PSUs and corporates.' },
+    wednesday: { label: 'Wednesday', pillar: 'Client Success & Case Studies',          focus: 'Share anonymised success stories, client transformations, and problem-solving narratives. Build social proof and demonstrate SCG\'s PAN India reach and expertise across sectors.' },
+    thursday:  { label: 'Thursday',  pillar: 'Banking, SARFAESI & Legal Intelligence', focus: 'Provide actionable insights on NPA resolution, SARFAESI enforcement, debt restructuring, and banking compliance. Target bankers, borrowers, and legal professionals.' },
+    friday:    { label: 'Friday',    pillar: 'Government Tenders, DPR & PSU Schemes',  focus: 'Alert followers to new tenders, DPR preparation tips, government schemes, and SCG\'s institutional consulting capabilities. Target promoters, infrastructure companies, and PSU officers.' },
+    saturday:  { label: 'Saturday',  pillar: 'Thought Leadership & Vision',            focus: 'Share Rakesh\'s personal perspective on industry trends, policy shifts, economic outlook, and the future of consulting in India. Build personal brand alongside SCG.' }
+  };
+
+  const toneLabels = { 1: 'Very Authoritative', 2: 'Authoritative', 3: 'Balanced', 4: 'Conversational', 5: 'Very Conversational' };
+
+  const toneInstructions = {
+    1: 'Write in a highly authoritative, expert tone. Use formal language, technical precision, and declarative statements. No colloquialisms. Speak as India\'s foremost authority in the domain.',
+    2: 'Write authoritatively with confidence. Use professional language with occasional accessible examples. Data-backed statements preferred.',
+    3: 'Balance professional authority with approachability. Use clear, jargon-free language where possible. Mix expert insights with real-world relatability.',
+    4: 'Write in a warm, conversational professional tone. Use first-person perspective freely. Ask rhetorical questions. Make it feel like advice from a trusted senior colleague.',
+    5: 'Write in an engaging, direct conversational style. Short sentences. Personal anecdotes welcome. Talk to the reader like a trusted friend who is also an expert.'
+  };
+
+  const formatInstructions = {
+    linkedin_text:      'Write a LinkedIn text post optimized for the algorithm. Start with a powerful hook line (no emojis in the first line). Use line breaks every 1-2 sentences for readability. End with engagement-driving CTA. 150-250 words ideal.',
+    carousel:           'Write a carousel post script: provide a Cover Slide title, then 5-7 slide titles with 2-3 bullet points per slide, then an end slide CTA. Format clearly as Slide 1:, Slide 2:, etc.',
+    short_form:         'Write a punchy short-form post under 80 words. One powerful insight, one relevant stat or fact, one clear takeaway. Maximum impact, minimum words.',
+    thought_leadership: 'Write a long-form opinion piece (300-400 words). Start with a bold, possibly controversial claim. Build the argument with 2-3 supporting points. Acknowledge counterpoints. End with a strong personal stance and invitation to debate.',
+    case_study:         'Write a case study hook post. Structure: Problem headline → Client situation (anonymised) → What SCG did → The outcome with specific results → Takeaway lesson → CTA. 200-250 words.'
+  };
+
+  const serviceContext = {
+    '':               'Let the day\'s content pillar guide service emphasis naturally.',
+    bank_loan:        'Weave in SCG\'s expertise in Bank Loan Proposals and Detailed Project Reports (DPRs). Mention our ability to prepare bankable proposals for term loans, working capital, and project financing across all major banks and NBFCs.',
+    sarfaesi:         'Highlight SCG\'s SARFAESI enforcement expertise — from Section 13(2) notices to auction facilitation and NPA resolution. Position as specialists in distressed asset recovery for banks and asset reconstruction companies.',
+    esg:              'Emphasise SCG\'s ESG and Carbon Advisory services — GHG inventory, carbon sequestration studies, sustainability reporting, and compliance advisory for PSUs, corporates, and mining companies.',
+    startup:          'Promote SCG\'s Startup & MSME Consulting — from business model validation to government scheme navigation (CGTMSE, Mudra, PLI) to investor pitch preparation and financial structuring.',
+    tender:           'Feature SCG\'s Institutional Tender and DPR capabilities — bid preparation, technical proposal writing, EOI management, and post-award project management for government and PSU tenders across India.',
+    project_finance:  'Showcase SCG\'s Project Finance and Capital Advisory — structured finance, equity-debt syndication, joint venture structuring, and financial feasibility studies for mid-to-large projects across sectors.'
+  };
+
+  const ctaMap = {
+    dm_me:   '📩 DM me to explore how SCG can help your business.',
+    comment: '💬 What\'s your experience with this? Comment below — let\'s discuss.',
+    website: '🌐 Visit www.shivagroup.org.in to explore SCG\'s full service portfolio.',
+    call:    '📞 Call +91 9979021275 or write to rakesh@shivagroup.org.in for a confidential consultation.',
+    none:    ''
+  };
+
+  // ─── Pill toggle logic ───
+  function setupPills(groupId, stateKey, multiSelect = true) {
+    document.getElementById(groupId).querySelectorAll('.pill').forEach(pill => {
+      pill.addEventListener('click', () => {
+        const val = pill.dataset.val;
+        if (multiSelect) {
+          if (pill.classList.contains('active')) {
+            if (state[stateKey].length > 1) {
+              state[stateKey] = state[stateKey].filter(v => v !== val);
+              pill.classList.remove('active');
+            }
+          } else {
+            state[stateKey].push(val);
+            pill.classList.add('active');
+          }
+        } else {
+          document.getElementById(groupId).querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+          state[stateKey] = [val];
+          pill.classList.add('active');
+        }
+      });
+    });
+  }
+
+  setupPills('formatPills', 'formats', false);
+  setupPills('audiencePills', 'audiences', true);
+  setupPills('ctaPills', 'ctas', true);
+
+  // ─── Day cards ───
+  document.getElementById('dayGrid').querySelectorAll('.day-card').forEach(card => {
+    card.addEventListener('click', () => {
+      document.getElementById('dayGrid').querySelectorAll('.day-card').forEach(c => c.classList.remove('active'));
+      card.classList.add('active');
+      state.day = card.dataset.day;
+    });
+  });
+
+  // ─── Tone slider ───
+  const slider = document.getElementById('toneSlider');
+  slider.addEventListener('input', () => {
+    state.tone = parseInt(slider.value);
+    document.getElementById('toneLabel').textContent = toneLabels[state.tone];
+    const pct = ((state.tone - 1) / 4) * 100;
+    slider.style.background = `linear-gradient(to right, var(--steel-blue) 0%, var(--steel-blue) ${pct}%, var(--border) ${pct}%, var(--border) 100%)`;
+  });
+
+  // ─── Topic & service ───
+  document.getElementById('topicInput').addEventListener('input', e => state.topic = e.target.value);
+  document.getElementById('serviceSelect').addEventListener('change', e => state.service = e.target.value);
+  document.getElementById('variantCount').addEventListener('change', e => state.variants = e.target.value);
+
+  // ─── Generate Prompt ───
+  function generatePrompt() {
+    const dc = dayConfig[state.day];
+    const fmt = state.formats[0];
+    const audienceLabels = {
+      msme_owners: 'MSME owners and business promoters', promoters: 'company promoters and directors',
+      bankers: 'bank officers and credit managers', startups: 'startup founders and entrepreneurs',
+      psus: 'PSU officers and government officials', nris: 'NRI investors and overseas Indians'
+    };
+    const selectedAudiences = state.audiences.map(a => audienceLabels[a] || a).join(', ');
+    const ctaText = state.ctas.filter(c => c !== 'none').map(c => ctaMap[c]).join('\n   ');
+    const topicLine = state.topic ? `\n\nTODAY'S NEWS HOOK:\n"${state.topic}"\nAnchor the posts to this development. Explain its implications for the target audience. Do not just restate it — extract actionable insight from it.` : '';
+
+    const prompt = `# SCG SOCIAL MEDIA CONTENT GENERATION SYSTEM
+## Shiva Consultancy Group · Ahmedabad · PAN India Advisory
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+IDENTITY & VOICE:
+You are writing as Rakesh Jha, Co-Founder of Shiva Consultancy Group (SCG) — a premier PAN India management consultancy based in Ahmedabad. SCG provides cutting-edge, personalised advisory across project finance, ESG/sustainability, SARFAESI enforcement, DPR preparation, bank loan proposals, institutional tenders, and MSME/startup consulting.
+
+Rakesh is a seasoned professional — authoritative, deeply knowledgeable, and genuinely invested in his clients' success. He speaks from experience, not theory. Every post must reflect this persona: measured expertise, practical insight, zero fluff.
+
+SCG contact details to reference where appropriate:
+  • Email: rakesh@shivagroup.org.in
+  • Website: www.shivagroup.org.in
+  • Mobile: +91 9979021275
+  • LinkedIn: linkedin.com/in/rksjha
+  • Address: SF-34, 4D Square Mall, Motera, Ahmedabad 380005
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+TODAY'S CONTENT PILLAR (${dc.label.toUpperCase()}):
+${dc.pillar}
+
+PILLAR OBJECTIVE:
+${dc.focus}
+
+SERVICE EMPHASIS:
+${serviceContext[state.service]}
+${topicLine}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+TARGET AUDIENCE:
+${selectedAudiences}
+
+Write so this audience immediately recognises that Rakesh understands THEIR problems. Use language they use. Reference challenges they face daily. Position SCG as the solution they have been looking for.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+FORMAT INSTRUCTIONS:
+${formatInstructions[fmt]}
+
+TONE:
+${toneInstructions[state.tone]}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+STRUCTURE RULES (MANDATORY):
+1. HOOK FIRST: The first line must stop the scroll. Use a bold statement, a surprising statistic, a counterintuitive claim, or a direct question. Never start with "I am" or "SCG is" or a generic greeting.
+2. BODY: 2-4 paragraphs of genuine insight. Each paragraph must deliver one clear, useful point. No padding.
+3. CREDIBILITY SIGNAL: Include one specific data point, regulatory reference, or real-world example per post (can be approximate/illustrative).
+4. CTA: End with the following call-to-action(s):
+   ${ctaText || 'No CTA — end with a thought-provoking closing statement.'}
+5. HASHTAGS: Select 10-12 highly relevant hashtags from the SCG Master Hashtag Pool. Always include #ShivaConsultancyGroup. Vary other selections based on post topic.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+SCG MASTER HASHTAG POOL (select 10-12 per post):
+#ShivaConsultancyGroup #SCGAdvisory #RakeshJha #AhmedabadConsultant #IndiaConsulting #MSMEIndia #MSMEFinance #StartupIndia #ProjectFinance #BankLoan #CapitalAdvisory #SARFAESI #DebtResolution #DPR #WorkingCapital #RBIPolicy #ESGIndia #Sustainability #GreenFinance #CarbonCredits #NetZero #GHGInventory #RenewableEnergy #GovernmentTender #PSUIndia #InfrastructureIndia #MakeInIndia #AtmanirbharBharat #ComplianceIndia #LegalAdvisory #BusinessStrategy #EntrepreneurIndia #BusinessGrowth #PanIndiaServices #GujaratBusiness #LinkedInIndia
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+QUALITY CHECKLIST (apply to every variant before output):
+  ✓ Hook is compelling — would YOU stop scrolling for this?
+  ✓ Language is precise — no vague buzzwords ("synergy", "leverage", "holistic")
+  ✓ At least one specific fact, figure, or regulation cited
+  ✓ SCG's expertise is demonstrated, not just claimed
+  ✓ Post length is appropriate for format
+  ✓ Hashtags are relevant and varied
+  ✓ The right CTA is included
+  ✗ Do NOT include: generic AI filler phrases, excessive emojis, hollow motivational content, or any claim SCG cannot substantiate
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+OUTPUT:
+Generate exactly ${state.variants} distinct post variant${state.variants > 1 ? 's' : ''}. Each must be meaningfully different in angle, hook, or emphasis — not just a rewrite.
+
+Label each clearly:
+  POST VARIANT 1:
+  [post text]
+  [hashtags]
+
+  POST VARIANT 2:
+  [post text]
+  [hashtags]
+
+  ${state.variants >= 3 ? 'POST VARIANT 3:\n  [post text]\n  [hashtags]' : ''}
+
+Do not include any explanation, commentary, or preamble — output the posts directly.`;
+
+    renderPrompt(prompt);
+  }
+
+  function renderPrompt(text) {
+    const box = document.getElementById('promptOutput');
+    // Colorize
+    const colored = text
+      .replace(/^(#.*)$/gm, (m) => `<span class="highlight">${m}</span>`)
+      .replace(/^(━+)$/gm, (m) => `<span class="comment">${m}</span>`)
+      .replace(/(\$\{[^}]+\})/g, (m) => `<span class="variable">${m}</span>`)
+      .replace(/(✓|✗)/g, (m) => `<span class="variable">${m}</span>`)
+      .replace(/(rakesh@[^\s<]+|www\.[^\s<]+|\+91[^\s<]+)/g, (m) => `<span class="variable">${m}</span>`);
+
+    box.innerHTML = `<button class="copy-btn" onclick="copyPrompt()">Copy</button>${colored}`;
+    box._rawText = text;
+
+    // Switch to prompt tab
+    switchTab('prompt', document.querySelector('.tab'));
+  }
+
+  function copyPrompt() {
+    const box = document.getElementById('promptOutput');
+    const text = box._rawText || box.innerText.replace('Copy', '').trim();
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = box.querySelector('.copy-btn');
+      btn.textContent = 'Copied ✓';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2500);
+    });
+  }
+
+  function switchTab(name, el) {
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('tab-' + name).classList.add('active');
+    // Activate the clicked tab
+    document.querySelectorAll('.tab').forEach(t => {
+      if (t.getAttribute('onclick') && t.getAttribute('onclick').includes("'" + name + "'")) {
+        t.classList.add('active');
+      }
+    });
+  }
+</script>
+</body>
+</html>
