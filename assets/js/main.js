@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Convert placeholder footer links (#) into real links (from profile)
-  document.querySelectorAll('a[href="#"]').forEach(a => {
+  document.querySelectorAll('.site-footer a').forEach(a => {
     const t = (a.textContent || '').toLowerCase();
     if (t.includes('whatsapp')) {
       a.href = 'https://wa.me/919979021275';
