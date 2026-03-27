@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loan / EMI Calculator | Shiva Consultancy Group</title>
+  <meta name="description" content="Free EMI calculator for home loans, business loans, MSME loans, and project finance. Calculate monthly EMI, total interest, and amortisation schedule.">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%230d2b5e'/><text y='72' x='50' text-anchor='middle' font-size='60' font-family='Arial' font-weight='900' fill='%23c9900c'>S</text></svg>">
+  <style>
+    .calc-hero { background: linear-gradient(135deg, #0d2b5e 0%, #1a4a9e 60%, #c9900c 100%); color: #fff; padding: 48px 24px 36px; text-align: center; }
+    .calc-hero h1 { font-size: 2rem; font-weight: 800; margin-bottom: 10px; }
+    .calc-hero p { opacity: 0.88; max-width: 560px; margin: 0 auto; }
+    .calc-body { max-width: 1100px; margin: 0 auto; padding: 40px 24px; }
+    .calc-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start; }
+    .calc-panel { background: #fff; border-radius: 14px; box-shadow: 0 4px 24px rgba(13,43,94,0.12); padding: 28px; }
+    .calc-panel h2 { color: var(--primary); font-size: 1.2rem; margin-bottom: 22px; border-bottom: 2px solid var(--accent); padding-bottom: 10px; }
+    .field-group { margin-bottom: 20px; }
+    .field-group label { display: block; font-size: 13px; font-weight: 600; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .field-row { display: flex; align-items: center; gap: 10px; }
+    .field-row input[type="number"] { flex: 1; padding: 12px 16px; border: 2px solid var(--border); border-radius: 8px; font-size: 16px; font-weight: 600; color: var(--text); background: #f8f9fc; transition: border-color 0.2s; }
+    .field-row input[type="number"]:focus { outline: none; border-color: var(--primary-light); background: #fff; }
+    .field-row input[type="range"] { flex: 1; accent-color: var(--primary); height: 4px; cursor: pointer; }
+    .field-unit { background: var(--primary); color: #fff; padding: 12px 14px; border-radius: 8px; font-size: 13px; font-weight: 700; white-space: nowrap; min-width: 60px; text-align: center; }
+    .loan-type-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+    .loan-type-tab { padding: 8px 16px; border-radius: 20px; border: 2px solid var(--border); background: #f8f9fc; cursor: pointer; font-size: 13px; font-weight: 600; color: var(--text-muted); transition: all 0.18s; }
+    .loan-type-tab.active, .loan-type-tab:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
+    .result-card { background: linear-gradient(135deg, var(--primary), var(--primary-light)); color: #fff; border-radius: 14px; padding: 28px; margin-bottom: 20px; text-align: center; }
+    .result-emi { font-size: 3rem; font-weight: 800; color: var(--accent-light); line-height: 1; }
+    .result-emi-label { font-size: 14px; opacity: 0.8; margin-top: 6px; }
+    .result-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 20px; }
+    .result-item { background: rgba(255,255,255,0.12); border-radius: 10px; padding: 14px; }
+    .result-item .ri-val { font-size: 1.2rem; font-weight: 700; color: var(--accent-light); }
+    .result-item .ri-label { font-size: 12px; opacity: 0.75; margin-top: 4px; }
+    .breakdown-bar { height: 10px; border-radius: 5px; overflow: hidden; display: flex; margin: 12px 0; }
+    .breakdown-principal { background: var(--accent); }
+    .breakdown-interest { background: rgba(255,255,255,0.35); }
+    .amort-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 16px; }
+    .amort-table th { background: var(--primary); color: #fff; padding: 10px 12px; text-align: right; font-weight: 600; }
+    .amort-table th:first-child { text-align: center; }
+    .amort-table td { padding: 8px 12px; border-bottom: 1px solid var(--border); text-align: right; }
+    .amort-table td:first-child { text-align: center; color: var(--text-muted); }
+    .amort-table tr:nth-child(even) { background: #f8f9fc; }
+    .amort-table tr:hover { background: rgba(13,43,94,0.05); }
+    .amort-section { background: #fff; border-radius: 14px; box-shadow: 0 4px 24px rgba(13,43,94,0.10); padding: 24px; margin-top: 28px; }
+    .amort-section h2 { color: var(--primary); font-size: 1.1rem; margin-bottom: 14px; }
+    .amort-scroll { max-height: 360px; overflow-y: auto; }
+    .calc-btn { width: 100%; padding: 14px; background: var(--accent); color: #fff; border: none; border-radius: 10px; font-size: 16px; font-weight: 700; cursor: pointer; margin-top: 8px; transition: background 0.2s, transform 0.1s; }
+    .calc-btn:hover { background: var(--accent-light); transform: translateY(-1px); }
+    .calc-btn:active { transform: translateY(0); }
+    .hint { font-size: 12px; color: var(--text-muted); margin-top: 6px; }
+    .cta-strip { background: linear-gradient(90deg, #0d2b5e, #1a4a9e); color: #fff; border-radius: 12px; padding: 28px; text-align: center; margin: 32px 0; }
+    .cta-strip h3 { margin-bottom: 10px; }
+    .cta-strip p { opacity: 0.82; margin-bottom: 18px; font-size: 14px; }
+    .btn-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    @media(max-width:760px){ .calc-layout { grid-template-columns: 1fr; } .result-grid { grid-template-columns: 1fr 1fr; } .calc-hero h1 { font-size: 1.5rem; } }
+  </style>
+</head>
+<body>
+
+<div class="network-banner">
+  <span>SCG Group Network:</span>
+  <a href="https://rksjha.github.io/SHIVACSG/">SCG Main</a>
+  <span class="nb-sep">|</span>
+  <a href="https://rksjha.github.io/shiva-financial-solutions/" target="_blank">Financial Solutions</a>
+  <span class="nb-sep">|</span>
+  <a href="loan-calculator.html" style="background:rgba(240,180,41,0.2);">&#128200; Loan Calculator</a>
+  <span class="nb-sep">|</span>
+  <a href="https://calendar.google.com/calendar/r" target="_blank">&#128197; Schedule Meeting</a>
+  <span class="nb-sep">|</span>
+  <a href="../contact/index.html">&#128203; Service Inquiry</a>
+</div>
+
+<header class="site-header">
+  <div class="nav-container">
+    <a href="../index.html" class="nav-brand">
+      <img src="../assets/images/logo.png" alt="Shiva Consultancy Group" class="nav-logo-img" onerror="this.style.display='none';document.getElementById('nb1').style.display='flex'">
+      <div class="nav-brand-icon" id="nb1" style="display:none">S</div>
+      <div class="nav-brand-text">
+        <div class="company">Shiva Consultancy Group</div>
+        <div class="tagline">Professional Business Solutions</div>
+      </div>
+    </a>
+    <nav>
+      <div class="nav-links" id="navLinks">
+        <a href="../index.html">Home</a>
+        <a href="../products/index.html">Products</a>
+        <a href="../services/index.html">Services</a>
+        <a href="../advertorials/index.html">Advertorials</a>
+        <a href="../small-apps/index.html" class="active">Small Apps</a>
+        <a href="../media/index.html">Media</a>
+        <a href="../contact/index.html">Contact</a>
+        <a href="https://rksjha.github.io/shiva-financial-solutions/" target="_blank" class="nav-financial">&#128200; Financial</a>
+      </div>
+    </nav>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<div class="calc-hero">
+  <div class="breadcrumb" style="color:rgba(255,255,255,0.6);font-size:13px;margin-bottom:14px;">
+    <a href="../index.html" style="color:rgba(255,255,255,0.7)">Home</a> /
+    <a href="index.html" style="color:rgba(255,255,255,0.7)">Small Apps</a> /
+    <span>Loan Calculator</span>
+  </div>
+  <h1>&#128200; Loan / EMI Calculator</h1>
+  <p>Calculate your monthly EMI, total interest, and full repayment schedule instantly — for business loans, home loans, MSME loans, and project finance.</p>
+</div>
+
+<div class="calc-body">
+
+  <div style="margin-bottom:18px;">
+    <div class="loan-type-tabs" id="loanTypeTabs">
+      <button class="loan-type-tab active" data-rate="12" data-tenure="60">Business Loan</button>
+      <button class="loan-type-tab" data-rate="9" data-tenure="180">Home Loan</button>
+      <button class="loan-type-tab" data-rate="11" data-tenure="84">MSME / Term Loan</button>
+      <button class="loan-type-tab" data-rate="10.5" data-tenure="120">Project Finance</button>
+      <button class="loan-type-tab" data-rate="8.5" data-tenure="84">Agri / NABARD</button>
+      <button class="loan-type-tab" data-rate="14" data-tenure="36">MUDRA / PMEGP</button>
+    </div>
+  </div>
+
+  <div class="calc-layout">
+    <div class="calc-panel">
+      <h2>&#9998; Enter Loan Details</h2>
+
+      <div class="field-group">
+        <label>Loan Amount</label>
+        <div class="field-row">
+          <input type="number" id="principal" value="2500000" min="10000" max="1000000000" step="10000">
+          <div class="field-unit">&#8377;</div>
+        </div>
+        <input type="range" id="principalRange" min="100000" max="50000000" value="2500000" step="50000" style="width:100%;margin-top:8px;">
+        <div class="hint" id="principalLabel">&#8377; 25,00,000</div>
+      </div>
+
+      <div class="field-group">
+        <label>Annual Interest Rate (%)</label>
+        <div class="field-row">
+          <input type="number" id="rate" value="12" min="1" max="36" step="0.1">
+          <div class="field-unit">% p.a.</div>
+        </div>
+        <input type="range" id="rateRange" min="5" max="30" value="12" step="0.1" style="width:100%;margin-top:8px;">
+      </div>
+
+      <div class="field-group">
+        <label>Loan Tenure (Months)</label>
+        <div class="field-row">
+          <input type="number" id="tenure" value="60" min="6" max="360" step="6">
+          <div class="field-unit">Months</div>
+        </div>
+        <input type="range" id="tenureRange" min="6" max="360" value="60" step="6" style="width:100%;margin-top:8px;">
+        <div class="hint" id="tenureLabel">5 Years</div>
+      </div>
+
+      <button class="calc-btn" id="calcBtn">&#9889; Calculate EMI</button>
+
+      <div style="margin-top:20px;padding:14px;background:#f4f6fb;border-radius:8px;font-size:12px;color:var(--text-muted);">
+        <strong>Note:</strong> This calculator provides estimates for planning purposes. Actual EMI may vary based on processing fees, insurance, and bank-specific terms. Contact SCG for a detailed finance assessment.
+      </div>
+    </div>
+
+    <div>
+      <div class="result-card" id="resultCard">
+        <div style="font-size:14px;opacity:0.7;margin-bottom:8px;">MONTHLY EMI</div>
+        <div class="result-emi" id="emiResult">&#8377; 55,611</div>
+        <div class="result-emi-label">per month for 60 months</div>
+        <div class="breakdown-bar" id="breakdownBar" style="margin-top:18px;">
+          <div class="breakdown-principal" id="bPrincipal" style="width:60%"></div>
+          <div class="breakdown-interest" style="flex:1"></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:11px;opacity:0.7;">
+          <span>&#9632; Principal</span><span>&#9632; Interest</span>
+        </div>
+        <div class="result-grid">
+          <div class="result-item">
+            <div class="ri-val" id="totalAmount">&#8377; 33,36,660</div>
+            <div class="ri-label">Total Amount Payable</div>
+          </div>
+          <div class="result-item">
+            <div class="ri-val" id="totalInterest">&#8377; 8,36,660</div>
+            <div class="ri-label">Total Interest Payable</div>
+          </div>
+          <div class="result-item">
+            <div class="ri-val" id="principalPc">74.9%</div>
+            <div class="ri-label">Principal %</div>
+          </div>
+          <div class="result-item">
+            <div class="ri-val" id="interestPc">25.1%</div>
+            <div class="ri-label">Interest %</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cta-strip">
+        <h3>&#128200; Need the Right Loan?</h3>
+        <p>SCG connects you with the best lender for your requirement — business loan, project finance, or MSME scheme.</p>
+        <div class="btn-row">
+          <a href="../contact/index.html" class="btn btn-primary">&#128140; Get Finance Advisory</a>
+          <a href="https://wa.me/919979021275?text=Hello+SCG%2C+I+calculated+my+EMI+and+need+help+getting+a+loan." target="_blank" class="btn" style="background:rgba(255,255,255,0.15);color:#fff;border:1px solid rgba(255,255,255,0.4);">&#128172; WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="amort-section" id="amortSection">
+    <h2>&#128200; Year-wise Amortisation Summary</h2>
+    <div class="amort-scroll">
+      <table class="amort-table" id="amortTable">
+        <thead>
+          <tr>
+            <th>Year</th>
+            <th>Opening Balance (&#8377;)</th>
+            <th>Principal Paid (&#8377;)</th>
+            <th>Interest Paid (&#8377;)</th>
+            <th>Closing Balance (&#8377;)</th>
+          </tr>
+        </thead>
+        <tbody id="amortBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img src="../assets/images/logo.png" alt="SCG Logo" class="footer-logo-img">
+      <div class="company">Shiva Consultancy Group</div>
+      <div class="tagline">Professional Business Solutions</div>
+      <p>Empowering businesses across India with expert consultancy, government scheme advisory, and strategic business development.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <a href="../products/index.html">Products</a>
+      <a href="../services/index.html">Services</a>
+      <a href="../advertorials/index.html">Advertorials</a>
+      <a href="../small-apps/index.html">Small Apps</a>
+      <a href="../media/index.html">Media Library</a>
+    </div>
+    <div class="footer-col">
+      <h4>Specialisations</h4>
+      <a href="../services/index.html#agriculture-infrastructure">Agriculture &amp; Food Infra</a>
+      <a href="../services/government-schemes.html">Government Schemes</a>
+      <a href="../services/food-processing.html">Food Processing</a>
+      <a href="../services/ipo-finance.html">IPO &amp; Finance Advisory</a>
+      <a href="../services/institutional-business.html">Institutional Business</a>
+    </div>
+    <div class="footer-col">
+      <h4>Connect with SCG</h4>
+      <a href="../contact/index.html">&#128140; Contact Us</a>
+      <a href="https://wa.me/919979021275" target="_blank">&#128172; WhatsApp Us</a>
+      <a href="https://www.linkedin.com/in/rksjha" target="_blank">&#128279; LinkedIn</a>
+      <a href="mailto:rakesh@shivagroup.org.in">&#9993; Email Us</a>
+      <a href="https://rksjha.github.io/shiva-financial-solutions/" target="_blank">&#128200; Financial Solutions</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    &copy; 2026 Shiva Consultancy Group. All rights reserved. &nbsp;|&nbsp; Managed by Rakesh Jha
+  </div>
+</footer>
+
+<script src="../assets/js/main.js"></script>
+<script>
+(function(){
+  var fmt = function(n){ return '&#8377; ' + Math.round(n).toLocaleString('en-IN'); };
+  var pctFmt = function(n){ return n.toFixed(1) + '%'; };
+
+  function calcEMI(P, r, n){
+    if(r === 0) return P / n;
+    var mr = r / 100 / 12;
+    return P * mr * Math.pow(1+mr, n) / (Math.pow(1+mr, n) - 1);
+  }
+
+  function updateLabels(){
+    var P = +document.getElementById('principal').value;
+    document.getElementById('principalLabel').textContent = '₹ ' + P.toLocaleString('en-IN');
+    var t = +document.getElementById('tenure').value;
+    var yrs = Math.floor(t/12), mo = t%12;
+    document.getElementById('tenureLabel').textContent =
+      (yrs > 0 ? yrs + ' Year' + (yrs>1?'s':'') : '') +
+      (yrs > 0 && mo > 0 ? ' ' : '') +
+      (mo > 0 ? mo + ' Month' + (mo>1?'s':'') : '');
+  }
+
+  function calculate(){
+    var P = +document.getElementById('principal').value;
+    var r = +document.getElementById('rate').value;
+    var n = +document.getElementById('tenure').value;
+    if(!P || !r || !n) return;
+
+    var emi = calcEMI(P, r, n);
+    var total = emi * n;
+    var interest = total - P;
+    var pPc = (P / total) * 100;
+    var iPc = (interest / total) * 100;
+
+    document.getElementById('emiResult').innerHTML = fmt(emi).replace('&#8377;', '₹');
+    document.querySelector('.result-emi-label').textContent = 'per month for ' + n + ' months';
+    document.getElementById('totalAmount').innerHTML = fmt(total).replace('&#8377;', '₹');
+    document.getElementById('totalInterest').innerHTML = fmt(interest).replace('&#8377;', '₹');
+    document.getElementById('principalPc').textContent = pPc.toFixed(1) + '%';
+    document.getElementById('interestPc').textContent = iPc.toFixed(1) + '%';
+    document.getElementById('bPrincipal').style.width = pPc + '%';
+
+    // Amortisation
+    var mr = r / 100 / 12;
+    var balance = P;
+    var tbody = document.getElementById('amortBody');
+    tbody.innerHTML = '';
+    var year = 1, yearPrincipal = 0, yearInterest = 0, openBalance = P;
+    for(var i = 1; i <= n; i++){
+      var intPay = balance * mr;
+      var prinPay = emi - intPay;
+      balance -= prinPay;
+      yearPrincipal += prinPay;
+      yearInterest += intPay;
+      if(i % 12 === 0 || i === n){
+        var tr = document.createElement('tr');
+        tr.innerHTML = '<td>' + year + '</td>' +
+          '<td>₹ ' + Math.round(openBalance).toLocaleString('en-IN') + '</td>' +
+          '<td>₹ ' + Math.round(yearPrincipal).toLocaleString('en-IN') + '</td>' +
+          '<td>₹ ' + Math.round(yearInterest).toLocaleString('en-IN') + '</td>' +
+          '<td>₹ ' + Math.round(Math.max(0, balance)).toLocaleString('en-IN') + '</td>';
+        tbody.appendChild(tr);
+        year++;
+        openBalance = Math.max(0, balance);
+        yearPrincipal = 0;
+        yearInterest = 0;
+      }
+    }
+  }
+
+  // Sync range <-> number inputs
+  ['principal','rate','tenure'].forEach(function(id){
+    var num = document.getElementById(id);
+    var rng = document.getElementById(id + 'Range');
+    num.addEventListener('input', function(){ rng.value = num.value; updateLabels(); calculate(); });
+    rng.addEventListener('input', function(){ num.value = rng.value; updateLabels(); calculate(); });
+  });
+
+  document.getElementById('calcBtn').addEventListener('click', calculate);
+
+  // Loan type tabs
+  document.querySelectorAll('.loan-type-tab').forEach(function(tab){
+    tab.addEventListener('click', function(){
+      document.querySelectorAll('.loan-type-tab').forEach(function(t){ t.classList.remove('active'); });
+      tab.classList.add('active');
+      document.getElementById('rate').value = tab.dataset.rate;
+      document.getElementById('rateRange').value = tab.dataset.rate;
+      document.getElementById('tenure').value = tab.dataset.tenure;
+      document.getElementById('tenureRange').value = tab.dataset.tenure;
+      updateLabels();
+      calculate();
+    });
+  });
+
+  updateLabels();
+  calculate();
+})();
+</script>
+</body>
+</html>
