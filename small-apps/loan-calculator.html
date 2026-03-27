@@ -3,57 +3,75 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Loan / EMI Calculator | Shiva Consultancy Group</title>
-  <meta name="description" content="Free EMI calculator for home loans, business loans, MSME loans, and project finance. Calculate monthly EMI, total interest, and amortisation schedule.">
+  <title>Loan / EMI Calculator &amp; Eligibility | Shiva Consultancy Group</title>
+  <meta name="description" content="Advanced EMI calculator with loan eligibility assessment for CGTMSE, MUDRA, Project Finance, Business Loan, MSME, Personal, Car &amp; Equipment Finance in India.">
   <link rel="stylesheet" href="../assets/css/style.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%230d2b5e'/><text y='72' x='50' text-anchor='middle' font-size='60' font-family='Arial' font-weight='900' fill='%23c9900c'>S</text></svg>">
   <style>
-    .calc-hero { background: linear-gradient(135deg, #0d2b5e 0%, #1a4a9e 60%, #c9900c 100%); color: #fff; padding: 48px 24px 36px; text-align: center; }
-    .calc-hero h1 { font-size: 2rem; font-weight: 800; margin-bottom: 10px; }
-    .calc-hero p { opacity: 0.88; max-width: 560px; margin: 0 auto; }
-    .calc-body { max-width: 1100px; margin: 0 auto; padding: 40px 24px; }
-    .calc-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start; }
-    .calc-panel { background: #fff; border-radius: 14px; box-shadow: 0 4px 24px rgba(13,43,94,0.12); padding: 28px; }
-    .calc-panel h2 { color: var(--primary); font-size: 1.2rem; margin-bottom: 22px; border-bottom: 2px solid var(--accent); padding-bottom: 10px; }
-    .field-group { margin-bottom: 20px; }
-    .field-group label { display: block; font-size: 13px; font-weight: 600; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
-    .field-row { display: flex; align-items: center; gap: 10px; }
-    .field-row input[type="number"] { flex: 1; padding: 12px 16px; border: 2px solid var(--border); border-radius: 8px; font-size: 16px; font-weight: 600; color: var(--text); background: #f8f9fc; transition: border-color 0.2s; }
-    .field-row input[type="number"]:focus { outline: none; border-color: var(--primary-light); background: #fff; }
-    .field-row input[type="range"] { flex: 1; accent-color: var(--primary); height: 4px; cursor: pointer; }
-    .field-unit { background: var(--primary); color: #fff; padding: 12px 14px; border-radius: 8px; font-size: 13px; font-weight: 700; white-space: nowrap; min-width: 60px; text-align: center; }
-    .loan-type-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
-    .loan-type-tab { padding: 8px 16px; border-radius: 20px; border: 2px solid var(--border); background: #f8f9fc; cursor: pointer; font-size: 13px; font-weight: 600; color: var(--text-muted); transition: all 0.18s; }
-    .loan-type-tab.active, .loan-type-tab:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
-    .result-card { background: linear-gradient(135deg, var(--primary), var(--primary-light)); color: #fff; border-radius: 14px; padding: 28px; margin-bottom: 20px; text-align: center; }
-    .result-emi { font-size: 3rem; font-weight: 800; color: var(--accent-light); line-height: 1; }
-    .result-emi-label { font-size: 14px; opacity: 0.8; margin-top: 6px; }
-    .result-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 20px; }
-    .result-item { background: rgba(255,255,255,0.12); border-radius: 10px; padding: 14px; }
-    .result-item .ri-val { font-size: 1.2rem; font-weight: 700; color: var(--accent-light); }
-    .result-item .ri-label { font-size: 12px; opacity: 0.75; margin-top: 4px; }
-    .breakdown-bar { height: 10px; border-radius: 5px; overflow: hidden; display: flex; margin: 12px 0; }
-    .breakdown-principal { background: var(--accent); }
-    .breakdown-interest { background: rgba(255,255,255,0.35); }
-    .amort-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 16px; }
-    .amort-table th { background: var(--primary); color: #fff; padding: 10px 12px; text-align: right; font-weight: 600; }
-    .amort-table th:first-child { text-align: center; }
-    .amort-table td { padding: 8px 12px; border-bottom: 1px solid var(--border); text-align: right; }
-    .amort-table td:first-child { text-align: center; color: var(--text-muted); }
-    .amort-table tr:nth-child(even) { background: #f8f9fc; }
-    .amort-table tr:hover { background: rgba(13,43,94,0.05); }
-    .amort-section { background: #fff; border-radius: 14px; box-shadow: 0 4px 24px rgba(13,43,94,0.10); padding: 24px; margin-top: 28px; }
-    .amort-section h2 { color: var(--primary); font-size: 1.1rem; margin-bottom: 14px; }
-    .amort-scroll { max-height: 360px; overflow-y: auto; }
-    .calc-btn { width: 100%; padding: 14px; background: var(--accent); color: #fff; border: none; border-radius: 10px; font-size: 16px; font-weight: 700; cursor: pointer; margin-top: 8px; transition: background 0.2s, transform 0.1s; }
-    .calc-btn:hover { background: var(--accent-light); transform: translateY(-1px); }
-    .calc-btn:active { transform: translateY(0); }
-    .hint { font-size: 12px; color: var(--text-muted); margin-top: 6px; }
-    .cta-strip { background: linear-gradient(90deg, #0d2b5e, #1a4a9e); color: #fff; border-radius: 12px; padding: 28px; text-align: center; margin: 32px 0; }
-    .cta-strip h3 { margin-bottom: 10px; }
-    .cta-strip p { opacity: 0.82; margin-bottom: 18px; font-size: 14px; }
-    .btn-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-    @media(max-width:760px){ .calc-layout { grid-template-columns: 1fr; } .result-grid { grid-template-columns: 1fr 1fr; } .calc-hero h1 { font-size: 1.5rem; } }
+    .calc-hero{background:linear-gradient(135deg,#0d2b5e 0%,#1a4a9e 60%,#c9900c 100%);color:#fff;padding:48px 24px 36px;text-align:center}
+    .calc-hero h1{font-size:2rem;font-weight:800;margin-bottom:10px}
+    .calc-hero p{opacity:.88;max-width:620px;margin:0 auto}
+    .calc-body{max-width:1200px;margin:0 auto;padding:32px 24px}
+    .calc-layout{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start}
+    .calc-panel{background:#fff;border-radius:14px;box-shadow:0 4px 24px rgba(13,43,94,.12);padding:24px;margin-bottom:24px}
+    .calc-panel h2{color:var(--primary);font-size:1.15rem;margin-bottom:18px;border-bottom:2px solid var(--accent);padding-bottom:8px}
+    .field-group{margin-bottom:16px}
+    .field-group label{display:block;font-size:12px;font-weight:600;color:var(--text-muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.4px}
+    .field-row{display:flex;align-items:center;gap:8px}
+    .field-row input[type="number"],.field-row select{flex:1;padding:10px 14px;border:2px solid var(--border);border-radius:8px;font-size:15px;font-weight:600;color:var(--text);background:#f8f9fc;transition:border-color .2s}
+    .field-row input[type="number"]:focus,.field-row select:focus{outline:none;border-color:var(--primary-light);background:#fff}
+    .field-unit{background:var(--primary);color:#fff;padding:10px 12px;border-radius:8px;font-size:12px;font-weight:700;white-space:nowrap;min-width:52px;text-align:center}
+    .loan-type-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px}
+    .loan-type-tab{padding:7px 14px;border-radius:20px;border:2px solid var(--border);background:#f8f9fc;cursor:pointer;font-size:12px;font-weight:600;color:var(--text-muted);transition:all .18s}
+    .loan-type-tab.active,.loan-type-tab:hover{background:var(--primary);color:#fff;border-color:var(--primary)}
+    .result-card{background:linear-gradient(135deg,var(--primary),var(--primary-light));color:#fff;border-radius:14px;padding:24px;margin-bottom:20px;text-align:center}
+    .result-emi{font-size:2.6rem;font-weight:800;color:var(--accent-light);line-height:1}
+    .result-emi-label{font-size:13px;opacity:.8;margin-top:4px}
+    .result-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+    .result-item{background:rgba(255,255,255,.12);border-radius:10px;padding:12px}
+    .result-item .ri-val{font-size:1.1rem;font-weight:700;color:var(--accent-light)}
+    .result-item .ri-label{font-size:11px;opacity:.75;margin-top:3px}
+    .breakdown-bar{height:8px;border-radius:4px;overflow:hidden;display:flex;margin:10px 0}
+    .breakdown-principal{background:var(--accent)}
+    .breakdown-interest{background:rgba(255,255,255,.35)}
+    .amort-table{width:100%;border-collapse:collapse;font-size:12px;margin-top:14px}
+    .amort-table th{background:var(--primary);color:#fff;padding:8px 10px;text-align:right;font-weight:600}
+    .amort-table th:first-child{text-align:center}
+    .amort-table td{padding:7px 10px;border-bottom:1px solid var(--border);text-align:right}
+    .amort-table td:first-child{text-align:center;color:var(--text-muted)}
+    .amort-table tr:nth-child(even){background:#f8f9fc}
+    .amort-section{background:#fff;border-radius:14px;box-shadow:0 4px 24px rgba(13,43,94,.10);padding:22px;margin-top:24px}
+    .amort-section h2{color:var(--primary);font-size:1.1rem;margin-bottom:12px}
+    .amort-scroll{max-height:340px;overflow-y:auto}
+    .calc-btn{width:100%;padding:13px;background:var(--accent);color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;margin-top:6px;transition:background .2s,transform .1s}
+    .calc-btn:hover{background:var(--accent-light);transform:translateY(-1px)}
+    .hint{font-size:11px;color:var(--text-muted);margin-top:4px}
+    .cta-strip{background:linear-gradient(90deg,#0d2b5e,#1a4a9e);color:#fff;border-radius:12px;padding:24px;text-align:center;margin:20px 0}
+    .cta-strip h3{margin-bottom:8px;font-size:1rem}
+    .cta-strip p{opacity:.82;margin-bottom:14px;font-size:13px}
+    .btn-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+    .fp-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .section-divider{border:none;border-top:2px dashed var(--border);margin:20px 0}
+    /* Eligibility Dashboard */
+    .elig-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-top:16px}
+    .elig-card{border-radius:12px;padding:16px;border:2px solid var(--border);background:#fff;transition:all .2s;position:relative;overflow:hidden}
+    .elig-card.eligible{border-color:#22c55e;background:linear-gradient(135deg,#f0fdf4,#dcfce7)}
+    .elig-card.partial{border-color:#f59e0b;background:linear-gradient(135deg,#fffbeb,#fef3c7)}
+    .elig-card.ineligible{border-color:#ef4444;background:linear-gradient(135deg,#fef2f2,#fee2e2)}
+    .elig-badge{position:absolute;top:12px;right:12px;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700}
+    .elig-card.eligible .elig-badge{background:#22c55e;color:#fff}
+    .elig-card.partial .elig-badge{background:#f59e0b;color:#fff}
+    .elig-card.ineligible .elig-badge{background:#ef4444;color:#fff}
+    .elig-card h4{color:var(--primary);font-size:13px;margin-bottom:8px;padding-right:36px}
+    .elig-card .elig-detail{font-size:11px;color:var(--text-muted);line-height:1.5}
+    .elig-card .elig-detail strong{color:var(--text)}
+    .elig-card .elig-limit{font-size:13px;font-weight:700;color:var(--primary);margin-top:8px}
+    .elig-legend{display:flex;gap:16px;margin-top:14px;font-size:12px;color:var(--text-muted)}
+    .elig-legend span{display:flex;align-items:center;gap:5px}
+    .elig-dot{width:10px;height:10px;border-radius:50%;display:inline-block}
+    .score-gauge{width:100%;height:10px;border-radius:5px;background:#e5e7eb;margin-top:8px;overflow:hidden}
+    .score-gauge-fill{height:100%;border-radius:5px;transition:width .4s}
+    @media(max-width:760px){.calc-layout{grid-template-columns:1fr}.fp-grid{grid-template-columns:1fr}.elig-grid{grid-template-columns:1fr}.calc-hero h1{font-size:1.4rem}}
   </style>
 </head>
 <body>
@@ -66,7 +84,7 @@
   <span class="nb-sep">|</span>
   <a href="loan-calculator.html" style="background:rgba(240,180,41,0.2);">&#128200; Loan Calculator</a>
   <span class="nb-sep">|</span>
-  <a href="https://calendar.google.com/calendar/r" target="_blank">&#128197; Schedule Meeting</a>
+  <a href="../calendar/index.html">&#128197; Schedule Meeting</a>
   <span class="nb-sep">|</span>
   <a href="../contact/index.html">&#128203; Service Inquiry</a>
 </div>
@@ -101,121 +119,209 @@
   <div class="breadcrumb" style="color:rgba(255,255,255,0.6);font-size:13px;margin-bottom:14px;">
     <a href="../index.html" style="color:rgba(255,255,255,0.7)">Home</a> /
     <a href="index.html" style="color:rgba(255,255,255,0.7)">Small Apps</a> /
-    <span>Loan Calculator</span>
+    <span>Loan Calculator &amp; Eligibility</span>
   </div>
-  <h1>&#128200; Loan / EMI Calculator</h1>
-  <p>Calculate your monthly EMI, total interest, and full repayment schedule instantly — for business loans, home loans, MSME loans, and project finance.</p>
+  <h1>&#128200; Loan Calculator &amp; Eligibility Checker</h1>
+  <p>Calculate EMI, assess your financial profile, and instantly check eligibility for CGTMSE, MUDRA, Project Finance, Business Loan, MSME, and more.</p>
 </div>
 
 <div class="calc-body">
 
-  <div style="margin-bottom:18px;">
-    <div class="loan-type-tabs" id="loanTypeTabs">
-      <button class="loan-type-tab active" data-rate="12" data-tenure="60">Business Loan</button>
-      <button class="loan-type-tab" data-rate="9" data-tenure="180">Home Loan</button>
-      <button class="loan-type-tab" data-rate="11" data-tenure="84">MSME / Term Loan</button>
-      <button class="loan-type-tab" data-rate="10.5" data-tenure="120">Project Finance</button>
-      <button class="loan-type-tab" data-rate="8.5" data-tenure="84">Agri / NABARD</button>
-      <button class="loan-type-tab" data-rate="14" data-tenure="36">MUDRA / PMEGP</button>
-    </div>
+  <!-- Loan Type Tabs -->
+  <div class="loan-type-tabs" id="loanTypeTabs">
+    <button class="loan-type-tab active" data-rate="12" data-tenure="60" data-max="20000000">Business Loan</button>
+    <button class="loan-type-tab" data-rate="9" data-tenure="240" data-max="100000000">Home Loan</button>
+    <button class="loan-type-tab" data-rate="11" data-tenure="84" data-max="50000000">MSME / Term Loan</button>
+    <button class="loan-type-tab" data-rate="10.5" data-tenure="120" data-max="500000000">Project Finance</button>
+    <button class="loan-type-tab" data-rate="8.5" data-tenure="84" data-max="20000000">Agri / NABARD</button>
+    <button class="loan-type-tab" data-rate="14" data-tenure="36" data-max="1000000">MUDRA / PMEGP</button>
+    <button class="loan-type-tab" data-rate="11.5" data-tenure="60" data-max="4000000">Personal Loan</button>
+    <button class="loan-type-tab" data-rate="8.5" data-tenure="84" data-max="10000000">Car Loan</button>
+    <button class="loan-type-tab" data-rate="12" data-tenure="60" data-max="50000000">Equipment Finance</button>
   </div>
 
   <div class="calc-layout">
-    <div class="calc-panel">
-      <h2>&#9998; Enter Loan Details</h2>
-
-      <div class="field-group">
-        <label>Loan Amount</label>
-        <div class="field-row">
-          <input type="number" id="principal" value="2500000" min="10000" max="1000000000" step="10000">
-          <div class="field-unit">&#8377;</div>
+    <!-- LEFT COLUMN: Inputs -->
+    <div>
+      <div class="calc-panel">
+        <h2>&#9998; Loan Details</h2>
+        <div class="field-group">
+          <label>Loan Amount</label>
+          <div class="field-row">
+            <input type="number" id="principal" value="2500000" min="10000" max="1000000000" step="10000">
+            <div class="field-unit">&#8377;</div>
+          </div>
+          <input type="range" id="principalRange" min="100000" max="50000000" value="2500000" step="50000" style="width:100%;margin-top:6px;">
+          <div class="hint" id="principalLabel">&#8377; 25,00,000</div>
         </div>
-        <input type="range" id="principalRange" min="100000" max="50000000" value="2500000" step="50000" style="width:100%;margin-top:8px;">
-        <div class="hint" id="principalLabel">&#8377; 25,00,000</div>
+        <div class="fp-grid">
+          <div class="field-group">
+            <label>Interest Rate (% p.a.)</label>
+            <div class="field-row">
+              <input type="number" id="rate" value="12" min="1" max="36" step="0.1">
+              <div class="field-unit">%</div>
+            </div>
+            <input type="range" id="rateRange" min="4" max="30" value="12" step="0.1" style="width:100%;margin-top:6px;">
+          </div>
+          <div class="field-group">
+            <label>Tenure (Months)</label>
+            <div class="field-row">
+              <input type="number" id="tenure" value="60" min="6" max="360" step="6">
+              <div class="field-unit">Mo.</div>
+            </div>
+            <input type="range" id="tenureRange" min="6" max="360" value="60" step="6" style="width:100%;margin-top:6px;">
+            <div class="hint" id="tenureLabel">5 Years</div>
+          </div>
+        </div>
+        <button class="calc-btn" id="calcBtn">&#9889; Calculate EMI &amp; Check Eligibility</button>
       </div>
 
-      <div class="field-group">
-        <label>Annual Interest Rate (%)</label>
-        <div class="field-row">
-          <input type="number" id="rate" value="12" min="1" max="36" step="0.1">
-          <div class="field-unit">% p.a.</div>
+      <!-- Financial Profile -->
+      <div class="calc-panel">
+        <h2>&#128179; Financial Profile (Optional — for Eligibility)</h2>
+        <div class="fp-grid">
+          <div class="field-group">
+            <label>Monthly Net Income</label>
+            <div class="field-row">
+              <input type="number" id="netIncome" value="150000" min="0" step="5000">
+              <div class="field-unit">&#8377;/mo</div>
+            </div>
+          </div>
+          <div class="field-group">
+            <label>Monthly Current Obligations (EMIs etc.)</label>
+            <div class="field-row">
+              <input type="number" id="monthlyObligations" value="20000" min="0" step="1000">
+              <div class="field-unit">&#8377;/mo</div>
+            </div>
+          </div>
+          <div class="field-group">
+            <label>Net Worth (Assets - Liabilities)</label>
+            <div class="field-row">
+              <input type="number" id="netWorth" value="5000000" min="0" step="100000">
+              <div class="field-unit">&#8377;</div>
+            </div>
+          </div>
+          <div class="field-group">
+            <label>Notional Cash (Liquid Assets)</label>
+            <div class="field-row">
+              <input type="number" id="notionalCash" value="1000000" min="0" step="50000">
+              <div class="field-unit">&#8377;</div>
+            </div>
+          </div>
+          <div class="field-group">
+            <label>Quasi Equity (Unsec. Loans from Promoters)</label>
+            <div class="field-row">
+              <input type="number" id="quasiEquity" value="0" min="0" step="50000">
+              <div class="field-unit">&#8377;</div>
+            </div>
+          </div>
+          <div class="field-group">
+            <label>Total Current Obligations (All Debts)</label>
+            <div class="field-row">
+              <input type="number" id="totalObligations" value="500000" min="0" step="50000">
+              <div class="field-unit">&#8377;</div>
+            </div>
+          </div>
+          <div class="field-group">
+            <label>Annual Turnover (Business)</label>
+            <div class="field-row">
+              <input type="number" id="turnover" value="5000000" min="0" step="100000">
+              <div class="field-unit">&#8377;</div>
+            </div>
+          </div>
+          <div class="field-group">
+            <label>Business Vintage (Years)</label>
+            <div class="field-row">
+              <input type="number" id="bizVintage" value="5" min="0" max="50" step="1">
+              <div class="field-unit">Yrs</div>
+            </div>
+          </div>
         </div>
-        <input type="range" id="rateRange" min="5" max="30" value="12" step="0.1" style="width:100%;margin-top:8px;">
-      </div>
-
-      <div class="field-group">
-        <label>Loan Tenure (Months)</label>
-        <div class="field-row">
-          <input type="number" id="tenure" value="60" min="6" max="360" step="6">
-          <div class="field-unit">Months</div>
+        <div class="fp-grid" style="margin-top:4px;">
+          <div class="field-group">
+            <label>CIBIL / Credit Score</label>
+            <div class="field-row">
+              <input type="number" id="cibilScore" value="750" min="300" max="900" step="1">
+              <div class="field-unit">Score</div>
+            </div>
+            <div class="score-gauge"><div class="score-gauge-fill" id="cibilGauge" style="width:75%;background:linear-gradient(90deg,#22c55e,#16a34a);"></div></div>
+            <div class="hint" id="cibilLabel" style="font-weight:600;color:#16a34a;">Good (750)</div>
+          </div>
+          <div class="field-group">
+            <label>Sector / Entity Type</label>
+            <div class="field-row">
+              <select id="sectorType">
+                <option value="msme_mfg">MSME - Manufacturing</option>
+                <option value="msme_svc" selected>MSME - Service</option>
+                <option value="startup">Startup (DPIIT)</option>
+                <option value="corporate">Corporate / Pvt Ltd</option>
+                <option value="proprietor">Proprietorship</option>
+                <option value="partnership">Partnership / LLP</option>
+                <option value="salaried">Salaried Individual</option>
+                <option value="farmer">Farmer / Agri</option>
+              </select>
+            </div>
+          </div>
         </div>
-        <input type="range" id="tenureRange" min="6" max="360" value="60" step="6" style="width:100%;margin-top:8px;">
-        <div class="hint" id="tenureLabel">5 Years</div>
-      </div>
-
-      <button class="calc-btn" id="calcBtn">&#9889; Calculate EMI</button>
-
-      <div style="margin-top:20px;padding:14px;background:#f4f6fb;border-radius:8px;font-size:12px;color:var(--text-muted);">
-        <strong>Note:</strong> This calculator provides estimates for planning purposes. Actual EMI may vary based on processing fees, insurance, and bank-specific terms. Contact SCG for a detailed finance assessment.
+        <div style="margin-top:12px;padding:12px;background:#f4f6fb;border-radius:8px;font-size:11px;color:var(--text-muted);">
+          <strong>FOIR:</strong> <span id="foirVal">--</span> &nbsp;|&nbsp;
+          <strong>DSCR:</strong> <span id="dscrVal">--</span> &nbsp;|&nbsp;
+          <strong>Available EMI Capacity:</strong> <span id="emiCapacity">--</span> &nbsp;|&nbsp;
+          <strong>Max Loan (est.):</strong> <span id="maxLoanEst">--</span>
+        </div>
       </div>
     </div>
 
+    <!-- RIGHT COLUMN: Results -->
     <div>
       <div class="result-card" id="resultCard">
-        <div style="font-size:14px;opacity:0.7;margin-bottom:8px;">MONTHLY EMI</div>
+        <div style="font-size:13px;opacity:.7;margin-bottom:6px;">MONTHLY EMI</div>
         <div class="result-emi" id="emiResult">&#8377; 55,611</div>
-        <div class="result-emi-label">per month for 60 months</div>
-        <div class="breakdown-bar" id="breakdownBar" style="margin-top:18px;">
+        <div class="result-emi-label" id="emiLabel">per month for 60 months</div>
+        <div class="breakdown-bar" style="margin-top:14px;">
           <div class="breakdown-principal" id="bPrincipal" style="width:60%"></div>
           <div class="breakdown-interest" style="flex:1"></div>
         </div>
-        <div style="display:flex;justify-content:space-between;font-size:11px;opacity:0.7;">
+        <div style="display:flex;justify-content:space-between;font-size:10px;opacity:.7;">
           <span>&#9632; Principal</span><span>&#9632; Interest</span>
         </div>
         <div class="result-grid">
-          <div class="result-item">
-            <div class="ri-val" id="totalAmount">&#8377; 33,36,660</div>
-            <div class="ri-label">Total Amount Payable</div>
-          </div>
-          <div class="result-item">
-            <div class="ri-val" id="totalInterest">&#8377; 8,36,660</div>
-            <div class="ri-label">Total Interest Payable</div>
-          </div>
-          <div class="result-item">
-            <div class="ri-val" id="principalPc">74.9%</div>
-            <div class="ri-label">Principal %</div>
-          </div>
-          <div class="result-item">
-            <div class="ri-val" id="interestPc">25.1%</div>
-            <div class="ri-label">Interest %</div>
-          </div>
+          <div class="result-item"><div class="ri-val" id="totalAmount">--</div><div class="ri-label">Total Payable</div></div>
+          <div class="result-item"><div class="ri-val" id="totalInterest">--</div><div class="ri-label">Total Interest</div></div>
+          <div class="result-item"><div class="ri-val" id="principalPc">--</div><div class="ri-label">Principal %</div></div>
+          <div class="result-item"><div class="ri-val" id="interestPc">--</div><div class="ri-label">Interest %</div></div>
         </div>
       </div>
 
+      <!-- Eligibility Dashboard -->
+      <div class="calc-panel" style="margin-bottom:0;">
+        <h2>&#127919; Loan Eligibility Dashboard</h2>
+        <p style="font-size:12px;color:var(--text-muted);margin-bottom:8px;">Based on your financial profile and Indian banking norms (RBI/CGTMSE/MUDRA guidelines)</p>
+        <div class="elig-legend">
+          <span><span class="elig-dot" style="background:#22c55e"></span> Likely Eligible</span>
+          <span><span class="elig-dot" style="background:#f59e0b"></span> Partial / Conditional</span>
+          <span><span class="elig-dot" style="background:#ef4444"></span> Not Eligible</span>
+        </div>
+        <div class="elig-grid" id="eligGrid"></div>
+      </div>
+
       <div class="cta-strip">
-        <h3>&#128200; Need the Right Loan?</h3>
-        <p>SCG connects you with the best lender for your requirement — business loan, project finance, or MSME scheme.</p>
+        <h3>&#128200; Need Help Getting the Right Loan?</h3>
+        <p>SCG's finance advisory connects you with the best lender and scheme for your requirement.</p>
         <div class="btn-row">
           <a href="../contact/index.html" class="btn btn-primary">&#128140; Get Finance Advisory</a>
-          <a href="https://wa.me/919979021275?text=Hello+SCG%2C+I+calculated+my+EMI+and+need+help+getting+a+loan." target="_blank" class="btn" style="background:rgba(255,255,255,0.15);color:#fff;border:1px solid rgba(255,255,255,0.4);">&#128172; WhatsApp</a>
+          <a href="https://wa.me/919979021275?text=Hello+SCG%2C+I+used+your+loan+calculator+and+need+help." target="_blank" class="btn" style="background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.4);">&#128172; WhatsApp</a>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="amort-section" id="amortSection">
+  <!-- Amortisation Table -->
+  <div class="amort-section">
     <h2>&#128200; Year-wise Amortisation Summary</h2>
     <div class="amort-scroll">
-      <table class="amort-table" id="amortTable">
-        <thead>
-          <tr>
-            <th>Year</th>
-            <th>Opening Balance (&#8377;)</th>
-            <th>Principal Paid (&#8377;)</th>
-            <th>Interest Paid (&#8377;)</th>
-            <th>Closing Balance (&#8377;)</th>
-          </tr>
-        </thead>
+      <table class="amort-table">
+        <thead><tr><th>Year</th><th>Opening Bal. (&#8377;)</th><th>Principal (&#8377;)</th><th>Interest (&#8377;)</th><th>Closing Bal. (&#8377;)</th></tr></thead>
         <tbody id="amortBody"></tbody>
       </table>
     </div>
@@ -253,111 +359,244 @@
       <a href="https://wa.me/919979021275" target="_blank">&#128172; WhatsApp Us</a>
       <a href="https://www.linkedin.com/in/rksjha" target="_blank">&#128279; LinkedIn</a>
       <a href="mailto:rakesh@shivagroup.org.in">&#9993; Email Us</a>
-      <a href="https://rksjha.github.io/shiva-financial-solutions/" target="_blank">&#128200; Financial Solutions</a>
     </div>
   </div>
-  <div class="footer-bottom">
-    &copy; 2026 Shiva Consultancy Group. All rights reserved. &nbsp;|&nbsp; Managed by Rakesh Jha
-  </div>
+  <div class="footer-bottom">&copy; 2026 Shiva Consultancy Group. All rights reserved. &nbsp;|&nbsp; Managed by Rakesh Jha</div>
 </footer>
 
 <script src="../assets/js/main.js"></script>
 <script>
 (function(){
-  var fmt = function(n){ return '&#8377; ' + Math.round(n).toLocaleString('en-IN'); };
-  var pctFmt = function(n){ return n.toFixed(1) + '%'; };
+  var INR = function(n){ return '\u20B9 ' + Math.round(n).toLocaleString('en-IN'); };
 
-  function calcEMI(P, r, n){
-    if(r === 0) return P / n;
-    var mr = r / 100 / 12;
-    return P * mr * Math.pow(1+mr, n) / (Math.pow(1+mr, n) - 1);
-  }
+  function calcEMI(P,r,n){ if(!r) return P/n; var m=r/100/12; return P*m*Math.pow(1+m,n)/(Math.pow(1+m,n)-1); }
 
   function updateLabels(){
-    var P = +document.getElementById('principal').value;
-    document.getElementById('principalLabel').textContent = '₹ ' + P.toLocaleString('en-IN');
-    var t = +document.getElementById('tenure').value;
-    var yrs = Math.floor(t/12), mo = t%12;
-    document.getElementById('tenureLabel').textContent =
-      (yrs > 0 ? yrs + ' Year' + (yrs>1?'s':'') : '') +
-      (yrs > 0 && mo > 0 ? ' ' : '') +
-      (mo > 0 ? mo + ' Month' + (mo>1?'s':'') : '');
+    var P=+$('principal').value;
+    $('principalLabel').textContent='\u20B9 '+P.toLocaleString('en-IN');
+    var t=+$('tenure').value, y=Math.floor(t/12), mo=t%12;
+    $('tenureLabel').textContent=(y>0?y+' Yr'+(y>1?'s':''):'')+(y&&mo?' ':'')+( mo>0?mo+' Mo'+(mo>1?'s':''):'');
+    updateCIBIL();
   }
+
+  function updateCIBIL(){
+    var s=+$('cibilScore').value, pct=Math.max(0,Math.min(100,(s-300)/600*100));
+    var g=$('cibilGauge'), lbl=$('cibilLabel');
+    g.style.width=pct+'%';
+    if(s>=750){g.style.background='linear-gradient(90deg,#22c55e,#16a34a)';lbl.style.color='#16a34a';lbl.textContent='Excellent ('+s+')';}
+    else if(s>=700){g.style.background='linear-gradient(90deg,#84cc16,#65a30d)';lbl.style.color='#65a30d';lbl.textContent='Good ('+s+')';}
+    else if(s>=650){g.style.background='linear-gradient(90deg,#f59e0b,#d97706)';lbl.style.color='#d97706';lbl.textContent='Fair ('+s+')';}
+    else{g.style.background='linear-gradient(90deg,#ef4444,#dc2626)';lbl.style.color='#dc2626';lbl.textContent='Poor ('+s+')';}
+  }
+
+  function $(id){ return document.getElementById(id); }
 
   function calculate(){
-    var P = +document.getElementById('principal').value;
-    var r = +document.getElementById('rate').value;
-    var n = +document.getElementById('tenure').value;
-    if(!P || !r || !n) return;
+    var P=+$('principal').value, r=+$('rate').value, n=+$('tenure').value;
+    if(!P||!r||!n) return;
+    var emi=calcEMI(P,r,n), total=emi*n, interest=total-P, pPc=(P/total)*100, iPc=100-pPc;
 
-    var emi = calcEMI(P, r, n);
-    var total = emi * n;
-    var interest = total - P;
-    var pPc = (P / total) * 100;
-    var iPc = (interest / total) * 100;
+    $('emiResult').textContent=INR(emi);
+    $('emiLabel').textContent='per month for '+n+' months';
+    $('totalAmount').textContent=INR(total);
+    $('totalInterest').textContent=INR(interest);
+    $('principalPc').textContent=pPc.toFixed(1)+'%';
+    $('interestPc').textContent=iPc.toFixed(1)+'%';
+    $('bPrincipal').style.width=pPc+'%';
 
-    document.getElementById('emiResult').innerHTML = fmt(emi).replace('&#8377;', '₹');
-    document.querySelector('.result-emi-label').textContent = 'per month for ' + n + ' months';
-    document.getElementById('totalAmount').innerHTML = fmt(total).replace('&#8377;', '₹');
-    document.getElementById('totalInterest').innerHTML = fmt(interest).replace('&#8377;', '₹');
-    document.getElementById('principalPc').textContent = pPc.toFixed(1) + '%';
-    document.getElementById('interestPc').textContent = iPc.toFixed(1) + '%';
-    document.getElementById('bPrincipal').style.width = pPc + '%';
+    // Financial metrics
+    var monthlyIncome=+$('netIncome').value||0;
+    var monthlyObl=+$('monthlyObligations').value||0;
+    var netWorth=+$('netWorth').value||0;
+    var notionalCash=+$('notionalCash').value||0;
+    var quasiEquity=+$('quasiEquity').value||0;
+    var totalObl=+$('totalObligations').value||0;
+    var turnover=+$('turnover').value||0;
+    var bizVintage=+$('bizVintage').value||0;
+    var cibil=+$('cibilScore').value||0;
+    var sector=$('sectorType').value;
+
+    var foir=monthlyIncome>0?((monthlyObl+emi)/monthlyIncome*100):0;
+    var annualIncome=monthlyIncome*12;
+    var annualEMI=(monthlyObl+emi)*12;
+    var dscr=annualEMI>0?(annualIncome/annualEMI):0;
+    var availEMI=Math.max(0,monthlyIncome*0.5-monthlyObl);
+    var maxLoan=availEMI>0?availEMI*((Math.pow(1+r/100/12,n)-1)/(r/100/12*Math.pow(1+r/100/12,n))):0;
+
+    $('foirVal').textContent=foir.toFixed(1)+'%'+(foir<=50?' \u2705':foir<=60?' \u26A0\uFE0F':' \u274C');
+    $('dscrVal').textContent=dscr.toFixed(2)+'x'+(dscr>=1.5?' \u2705':dscr>=1.25?' \u26A0\uFE0F':' \u274C');
+    $('emiCapacity').textContent=INR(availEMI)+'/mo';
+    $('maxLoanEst').textContent=INR(maxLoan);
 
     // Amortisation
-    var mr = r / 100 / 12;
-    var balance = P;
-    var tbody = document.getElementById('amortBody');
-    tbody.innerHTML = '';
-    var year = 1, yearPrincipal = 0, yearInterest = 0, openBalance = P;
-    for(var i = 1; i <= n; i++){
-      var intPay = balance * mr;
-      var prinPay = emi - intPay;
-      balance -= prinPay;
-      yearPrincipal += prinPay;
-      yearInterest += intPay;
-      if(i % 12 === 0 || i === n){
-        var tr = document.createElement('tr');
-        tr.innerHTML = '<td>' + year + '</td>' +
-          '<td>₹ ' + Math.round(openBalance).toLocaleString('en-IN') + '</td>' +
-          '<td>₹ ' + Math.round(yearPrincipal).toLocaleString('en-IN') + '</td>' +
-          '<td>₹ ' + Math.round(yearInterest).toLocaleString('en-IN') + '</td>' +
-          '<td>₹ ' + Math.round(Math.max(0, balance)).toLocaleString('en-IN') + '</td>';
-        tbody.appendChild(tr);
-        year++;
-        openBalance = Math.max(0, balance);
-        yearPrincipal = 0;
-        yearInterest = 0;
+    var mr=r/100/12, bal=P, tbody=$('amortBody'); tbody.innerHTML='';
+    var yr=1,yP=0,yI=0,oB=P;
+    for(var i=1;i<=n;i++){
+      var ip=bal*mr, pp=emi-ip; bal-=pp; yP+=pp; yI+=ip;
+      if(i%12===0||i===n){
+        var tr=document.createElement('tr');
+        tr.innerHTML='<td>'+yr+'</td><td>'+INR(oB)+'</td><td>'+INR(yP)+'</td><td>'+INR(yI)+'</td><td>'+INR(Math.max(0,bal))+'</td>';
+        tbody.appendChild(tr); yr++; oB=Math.max(0,bal); yP=0; yI=0;
       }
     }
+
+    // === ELIGIBILITY ENGINE ===
+    var isMSME=sector.startsWith('msme')||sector==='proprietor'||sector==='partnership'||sector==='startup';
+    var isSalaried=sector==='salaried';
+    var isFarmer=sector==='farmer';
+    var isMfg=sector==='msme_mfg';
+
+    var loans=[
+      {
+        name:'CGTMSE Loan',icon:'\uD83D\uDEE1\uFE0F',
+        desc:'Collateral-free credit guarantee for micro & small enterprises (up to \u20B95 Cr)',
+        checks:[
+          {label:'MSME entity',pass:isMSME,note:isMSME?'Eligible sector':'Must be micro/small enterprise'},
+          {label:'Loan \u2264 \u20B95 Cr',pass:P<=50000000,note:P<=50000000?INR(P):'Exceeds \u20B95 Cr limit'},
+          {label:'CIBIL \u2265 700',pass:cibil>=700,note:'Score: '+cibil},
+          {label:'Business vintage \u2265 1 yr',pass:bizVintage>=1,note:bizVintage+' years'}
+        ],
+        limit:'Up to \u20B95 Cr (collateral-free)'
+      },
+      {
+        name:'MUDRA Loan',icon:'\uD83C\uDFE6',
+        desc:'Shishu (\u20B950K), Kishore (\u20B95L), Tarun (\u20B910L) for micro enterprises',
+        checks:[
+          {label:'Loan \u2264 \u20B910 Lakh',pass:P<=1000000,note:P<=1000000?(P<=50000?'Shishu':P<=500000?'Kishore':'Tarun'):'Exceeds \u20B910L'},
+          {label:'Non-corporate entity',pass:sector!=='corporate',note:sector==='corporate'?'Corporates not eligible':'OK'},
+          {label:'CIBIL \u2265 650',pass:cibil>=650,note:'Score: '+cibil},
+          {label:'Non-farm sector',pass:!isFarmer,note:isFarmer?'Agri — use NABARD':'OK'}
+        ],
+        limit:P<=50000?'Shishu: up to \u20B950,000':P<=500000?'Kishore: up to \u20B95,00,000':'Tarun: up to \u20B910,00,000'
+      },
+      {
+        name:'Project Finance',icon:'\uD83C\uDFD7\uFE0F',
+        desc:'Term loan for greenfield/brownfield projects (\u20B950L+), requires DPR and promoter equity',
+        checks:[
+          {label:'Loan \u2265 \u20B950 Lakh',pass:P>=5000000,note:P>=5000000?INR(P):'Below typical \u20B950L threshold'},
+          {label:'DSCR > 1.30',pass:dscr>=1.3,note:'DSCR: '+dscr.toFixed(2)+'x'},
+          {label:'Promoter equity \u2265 25%',pass:netWorth>=P*0.25,note:'NW: '+INR(netWorth)+' vs 25%: '+INR(P*0.25)},
+          {label:'CIBIL \u2265 700',pass:cibil>=700,note:'Score: '+cibil}
+        ],
+        limit:'No upper limit (project-based)'
+      },
+      {
+        name:'Working Capital',icon:'\uD83D\uDCB0',
+        desc:'CC/OD facility — Nayak Committee: 25% of projected annual turnover',
+        checks:[
+          {label:'Turnover > 0',pass:turnover>0,note:turnover>0?'Turnover: '+INR(turnover):'No turnover declared'},
+          {label:'Loan \u2264 25% of turnover',pass:turnover>0&&P<=turnover*0.25,note:'25% limit: '+INR(turnover*0.25)},
+          {label:'CIBIL \u2265 680',pass:cibil>=680,note:'Score: '+cibil},
+          {label:'Business vintage \u2265 1 yr',pass:bizVintage>=1,note:bizVintage+' years'}
+        ],
+        limit:'Up to '+INR(turnover*0.25)+' (Nayak method)'
+      },
+      {
+        name:'Business Loan (Unsecured)',icon:'\uD83D\uDCBC',
+        desc:'Up to \u20B92 Cr unsecured for established businesses, FOIR-based',
+        checks:[
+          {label:'Loan \u2264 \u20B92 Cr',pass:P<=20000000,note:P<=20000000?INR(P):'Exceeds unsecured limit'},
+          {label:'FOIR \u2264 50%',pass:foir<=50,note:'FOIR: '+foir.toFixed(1)+'%'},
+          {label:'CIBIL \u2265 700',pass:cibil>=700,note:'Score: '+cibil},
+          {label:'Vintage \u2265 3 yrs',pass:bizVintage>=3,note:bizVintage+' years'}
+        ],
+        limit:'Max EMI capacity: '+INR(availEMI)+'/mo'
+      },
+      {
+        name:'Personal Loan',icon:'\uD83D\uDC64',
+        desc:'Up to \u20B940 Lakh for salaried/self-employed, income & CIBIL based',
+        checks:[
+          {label:'Loan \u2264 \u20B940 Lakh',pass:P<=4000000,note:P<=4000000?INR(P):'Exceeds \u20B940L limit'},
+          {label:'Monthly income \u2265 \u20B925K',pass:monthlyIncome>=25000,note:INR(monthlyIncome)+'/mo'},
+          {label:'FOIR \u2264 50%',pass:foir<=50,note:'FOIR: '+foir.toFixed(1)+'%'},
+          {label:'CIBIL \u2265 750',pass:cibil>=750,note:'Score: '+cibil}
+        ],
+        limit:'Max: '+INR(Math.min(4000000,availEMI*((Math.pow(1+0.115/12,60)-1)/(0.115/12*Math.pow(1+0.115/12,60)))))
+      },
+      {
+        name:'Car Loan',icon:'\uD83D\uDE97',
+        desc:'Up to 90% of vehicle on-road price, 7-year tenure max',
+        checks:[
+          {label:'Loan tenure \u2264 84 months',pass:n<=84,note:n+' months'},
+          {label:'FOIR \u2264 50%',pass:foir<=50,note:'FOIR: '+foir.toFixed(1)+'%'},
+          {label:'CIBIL \u2265 700',pass:cibil>=700,note:'Score: '+cibil},
+          {label:'Income sufficient for EMI',pass:monthlyIncome>0&&emi<=monthlyIncome*0.5,note:'EMI/Income: '+(monthlyIncome>0?(emi/monthlyIncome*100).toFixed(0)+'%':'N/A')}
+        ],
+        limit:'LTV: 80-90% of on-road price'
+      },
+      {
+        name:'Equipment Finance',icon:'\u2699\uFE0F',
+        desc:'Machinery & equipment loans for businesses, 75-85% LTV',
+        checks:[
+          {label:'Business entity',pass:!isSalaried,note:isSalaried?'Salaried — not eligible':'OK'},
+          {label:'CIBIL \u2265 680',pass:cibil>=680,note:'Score: '+cibil},
+          {label:'DSCR > 1.25',pass:dscr>=1.25,note:'DSCR: '+dscr.toFixed(2)+'x'},
+          {label:'Business vintage \u2265 2 yrs',pass:bizVintage>=2,note:bizVintage+' years'}
+        ],
+        limit:'LTV: 75-85% of equipment cost'
+      },
+      {
+        name:'MSME Loan (Udyam)',icon:'\uD83C\uDFED',
+        desc:'Priority sector lending for Udyam-registered MSMEs via banks & NBFCs',
+        checks:[
+          {label:'MSME / Udyam eligible',pass:isMSME,note:isMSME?'Eligible':'Not MSME sector'},
+          {label:'CIBIL \u2265 680',pass:cibil>=680,note:'Score: '+cibil},
+          {label:'Business vintage \u2265 1 yr',pass:bizVintage>=1,note:bizVintage+' years'},
+          {label:'Turnover within MSME limits',pass:turnover<=2500000000,note:turnover<=50000000?'Micro':turnover<=500000000?'Small':'Medium'}
+        ],
+        limit:'Based on turnover & track record'
+      }
+    ];
+
+    var grid=$('eligGrid'); grid.innerHTML='';
+    loans.forEach(function(loan){
+      var passed=loan.checks.filter(function(c){return c.pass;}).length;
+      var total=loan.checks.length;
+      var status=passed===total?'eligible':passed>=total-1?'partial':'ineligible';
+      var badge=status==='eligible'?'\u2713':status==='partial'?'~':'\u2717';
+      var html='<div class="elig-card '+status+'">';
+      html+='<div class="elig-badge">'+badge+'</div>';
+      html+='<h4>'+loan.icon+' '+loan.name+'</h4>';
+      html+='<div class="elig-detail" style="margin-bottom:6px;">'+loan.desc+'</div>';
+      html+='<div class="elig-detail">';
+      loan.checks.forEach(function(c){
+        html+='<div style="margin:3px 0;">'+(c.pass?'\u2705':'\u274C')+' <strong>'+c.label+'</strong> &mdash; '+c.note+'</div>';
+      });
+      html+='</div>';
+      html+='<div class="elig-limit">'+loan.limit+'</div>';
+      html+='</div>';
+      grid.innerHTML+=html;
+    });
   }
 
-  // Sync range <-> number inputs
+  // Sync sliders
   ['principal','rate','tenure'].forEach(function(id){
-    var num = document.getElementById(id);
-    var rng = document.getElementById(id + 'Range');
-    num.addEventListener('input', function(){ rng.value = num.value; updateLabels(); calculate(); });
-    rng.addEventListener('input', function(){ num.value = rng.value; updateLabels(); calculate(); });
+    var num=$(id), rng=$(id+'Range');
+    num.addEventListener('input',function(){rng.value=num.value;updateLabels();calculate();});
+    rng.addEventListener('input',function(){num.value=rng.value;updateLabels();calculate();});
   });
 
-  document.getElementById('calcBtn').addEventListener('click', calculate);
+  // Financial profile fields trigger recalc
+  ['netIncome','monthlyObligations','netWorth','notionalCash','quasiEquity','totalObligations','turnover','bizVintage','cibilScore','sectorType'].forEach(function(id){
+    $(id).addEventListener('input',function(){updateLabels();calculate();});
+    $(id).addEventListener('change',function(){updateLabels();calculate();});
+  });
+
+  $('calcBtn').addEventListener('click',calculate);
 
   // Loan type tabs
   document.querySelectorAll('.loan-type-tab').forEach(function(tab){
-    tab.addEventListener('click', function(){
-      document.querySelectorAll('.loan-type-tab').forEach(function(t){ t.classList.remove('active'); });
+    tab.addEventListener('click',function(){
+      document.querySelectorAll('.loan-type-tab').forEach(function(t){t.classList.remove('active');});
       tab.classList.add('active');
-      document.getElementById('rate').value = tab.dataset.rate;
-      document.getElementById('rateRange').value = tab.dataset.rate;
-      document.getElementById('tenure').value = tab.dataset.tenure;
-      document.getElementById('tenureRange').value = tab.dataset.tenure;
-      updateLabels();
-      calculate();
+      $('rate').value=tab.dataset.rate; $('rateRange').value=tab.dataset.rate;
+      $('tenure').value=tab.dataset.tenure; $('tenureRange').value=tab.dataset.tenure;
+      if(tab.dataset.max){$('principalRange').max=tab.dataset.max;}
+      updateLabels(); calculate();
     });
   });
 
-  updateLabels();
-  calculate();
+  updateLabels(); calculate();
 })();
 </script>
 </body>
