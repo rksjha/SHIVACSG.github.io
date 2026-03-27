@@ -22,6 +22,47 @@ document.addEventListener('DOMContentLoaded', () => {
       a.classList.add('active');
     }
   });
+
+  // Convert placeholder footer links (#) into real links (from profile)
+  document.querySelectorAll('a[href="#"]').forEach(a => {
+    const t = (a.textContent || '').toLowerCase();
+    if (t.includes('whatsapp')) {
+      a.href = 'https://wa.me/919979021275';
+      a.target = '_blank';
+      a.rel = 'noopener';
+      return;
+    }
+    if (t.includes('linkedin')) {
+      a.href = 'https://www.linkedin.com/in/rksjha';
+      a.target = '_blank';
+      a.rel = 'noopener';
+      return;
+    }
+    if (t.includes('agriculture infrastructure')) {
+      a.href = 'https://rksjha.github.io/SHIVACSG.github.io/Product%20and%20service%20profile/index.html';
+      return;
+    }
+    if (t.includes('government schemes')) {
+      a.href = 'https://rksjha.github.io/SHIVACSG.github.io/services/index.html';
+      return;
+    }
+    if (t.includes('food processing')) {
+      a.href = 'https://rksjha.github.io/SHIVACSG.github.io/Product%20and%20service%20profile/index.html';
+      return;
+    }
+    if (t.includes('business development')) {
+      a.href = 'https://rksjha.github.io/SHIVACSG.github.io/services/index.html';
+      return;
+    }
+    if (t.includes('ipo')) {
+      a.href = 'https://rksjha.github.io/SHIVACSG.github.io/advertorials/index.html';
+      return;
+    }
+    if (t.includes('institutional')) {
+      a.href = 'https://rksjha.github.io/SHIVACSG.github.io/services/index.html';
+      return;
+    }
+  });
 });
 
 // ---------- Live Search Filter for Gallery ----------
