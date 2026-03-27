@@ -7,13 +7,23 @@
   <meta name="description" content="Get in touch with Shiva Consultancy Group for professional consultancy, agriculture infrastructure, business development, and IPO advisory services.">
   <meta property="og:title"       content="Contact SCG | Shiva Consultancy Group">
   <meta property="og:description" content="Reach out to SCG for expert consultancy services across India.">
-  <meta property="og:url"         content="https://rksjha.github.io/SHIVACSG.github.io/contact/">
+  <meta property="og:url"         content="https://rksjha.github.io/SHIVACSG/contact/">
   <link rel="stylesheet" href="../assets/css/style.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%230d2b5e'/><text y='72' x='50' text-anchor='middle' font-size='60' font-family='Arial' font-weight='900' fill='%23c9900c'>S</text></svg>">
 </head>
 <body>
 
 <!-- ===== HEADER ===== -->
+<!-- ===== CROSS-SITE NETWORK BANNER ===== -->
+<div class="network-banner">
+  <span>SCG Group Network:</span>
+  <a href="https://rksjha.github.io/SHIVACSG/" title="SCG Main Website">SCG Main</a>
+  <span class="nb-sep">|</span>
+  <a href="https://rksjha.github.io/shiva-financial-solutions/" target="_blank" title="Shiva Financial Solutions">Financial Solutions</a>
+  <span class="nb-sep">|</span>
+  <a href="https://openclaw.ai" target="_blank" title="OpenClaw AI Assistant">🦞 AI Assistant</a>
+</div>
+
 <header class="site-header">
   <div class="nav-container">
     <a href="../index.html" class="nav-brand">
@@ -81,7 +91,7 @@
           <div>
             <div class="contact-detail-label">WhatsApp</div>
             <div class="contact-detail-value">
-              <a href="https://wa.me/91XXXXXXXXXX" target="_blank" style="color:var(--accent);">Chat on WhatsApp</a>
+              <a href="https://wa.me/919979021275" target="_blank" style="color:var(--accent);">Chat on WhatsApp</a>
             </div>
           </div>
         </div>
@@ -124,9 +134,9 @@
         <div class="share-bar" style="padding:14px 16px;">
           <span class="share-bar-label">Share SCG:</span>
           <div class="share-buttons">
-            <button class="share-btn share-whatsapp" onclick="shareWhatsApp('Shiva Consultancy Group — Professional Business Solutions','https://rksjha.github.io/SHIVACSG.github.io/')">&#128172;</button>
-            <button class="share-btn share-linkedin" onclick="shareLinkedIn('https://rksjha.github.io/SHIVACSG.github.io/')">&#128279;</button>
-            <button class="share-btn share-copy" onclick="copyLink('https://rksjha.github.io/SHIVACSG.github.io/contact/')">&#128279; Copy</button>
+            <button class="share-btn share-whatsapp" onclick="shareWhatsApp('Shiva Consultancy Group — Professional Business Solutions','https://rksjha.github.io/SHIVACSG/')">&#128172;</button>
+            <button class="share-btn share-linkedin" onclick="shareLinkedIn('https://rksjha.github.io/SHIVACSG/')">&#128279;</button>
+            <button class="share-btn share-copy" onclick="copyLink('https://rksjha.github.io/SHIVACSG/contact/')">&#128279; Copy</button>
           </div>
         </div>
       </div>
@@ -154,8 +164,8 @@
         That's it — submissions will email you automatically!
       -->
       <form
-        id="contactForm"
-        action="https://formspree.io/f/YOUR_FORM_ID"
+        id="contactForm" data-scg-collect="scg-contact"
+        action="https://formspree.io/f/xkgbbwpv"
         method="POST"
         novalidate
       >
@@ -295,11 +305,14 @@
     </div>
   </div>
   <div class="footer-bottom">
-    &copy; 2025 Shiva Consultancy Group. All rights reserved. &nbsp;|&nbsp; Managed by Rakesh Jha
+    &copy; 2026 Shiva Consultancy Group. All rights reserved. &nbsp;|&nbsp; Managed by Rakesh Jha
   </div>
 </footer>
 
 <script src="../assets/js/main.js"></script>
+<script src="../assets/js/form-data-collector.js"></script>
+<script src="../assets/js/openclaw-widget.js"></script>
+
 <script>
 // ---- AJAX Form Submission ----
 const form        = document.getElementById('contactForm');

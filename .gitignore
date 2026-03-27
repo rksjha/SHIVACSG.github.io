@@ -1,0 +1,5 @@
+
+# Large video files — store via Git LFS or external hosting
+*.mp4
+*.MP4
+.DS_Store

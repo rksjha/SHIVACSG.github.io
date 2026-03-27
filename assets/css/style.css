@@ -74,6 +74,37 @@ img { max-width: 100%; display: block; }
   transition: 0.3s;
 }
 
+/* ---------- Cross-Site Network Banner ---------- */
+.network-banner {
+  background: linear-gradient(90deg, #071220 0%, #0d2b5e 50%, #071220 100%);
+  border-bottom: 1px solid rgba(201,144,12,0.30);
+  padding: 7px 24px;
+  display: flex; align-items: center; justify-content: center; gap: 16px;
+  font-size: 12px; color: rgba(255,255,255,0.72);
+  letter-spacing: 0.3px;
+  flex-wrap: wrap;
+}
+.network-banner a {
+  color: #f0b429; font-weight: 600; text-decoration: none;
+  border: 1px solid rgba(240,180,41,0.35);
+  padding: 3px 10px; border-radius: 20px;
+  transition: background .15s, color .15s;
+}
+.network-banner a:hover { background: rgba(240,180,41,0.15); color: #fff; }
+.network-banner .nb-sep { opacity: 0.3; }
+
+/* Financial Solutions special nav link */
+.nav-links a.nav-financial {
+  color: #f0b429 !important;
+  border: 1px solid rgba(240,180,41,0.40);
+  border-radius: 6px;
+  padding: 6px 13px;
+}
+.nav-links a.nav-financial:hover {
+  background: rgba(240,180,41,0.15) !important;
+  color: #fff !important;
+}
+
 /* ---------- Hero Section ---------- */
 .hero {
   background: linear-gradient(135deg, var(--primary) 0%, #1e4d8c 60%, #0a2245 100%);
