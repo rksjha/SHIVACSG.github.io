@@ -507,3 +507,145 @@ img { max-width: 100%; display: block; }
   .hero p { font-size: 15px; }
   .file-grid { grid-template-columns: 1fr 1fr; }
 }
+
+/* ============================================================
+   LOGO & NAV ENHANCEMENTS
+   ============================================================ */
+
+/* Logo image in header */
+.nav-logo-img {
+  height: 42px; width: auto; display: block;
+  object-fit: contain;
+  border-radius: 4px;
+}
+.nav-brand-icon { display: none; } /* hide letter fallback when logo loads */
+.nav-brand-icon.show-fallback { display: flex; }
+
+/* Taller nav to fit logo */
+:root { --nav-height: 72px; }
+.site-header { height: var(--nav-height); }
+
+/* ============================================================
+   SERVICES PAGE — Service Cards with Images
+   ============================================================ */
+.services-intro {
+  text-align: center; max-width: 700px; margin: 0 auto 52px;
+}
+.services-intro h2 {
+  font-size: clamp(24px,4vw,36px); font-weight: 800;
+  color: var(--primary); margin-bottom: 12px;
+}
+.services-intro p { font-size: 16px; color: var(--text-muted); }
+
+.service-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 28px;
+}
+.service-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  display: flex; flex-direction: column;
+}
+.service-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 36px rgba(13,43,94,0.16);
+  border-color: var(--accent);
+}
+.service-card-img {
+  width: 100%; height: 180px; object-fit: cover;
+  background: linear-gradient(135deg,#e8eef8,#d0daf0);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 60px;
+}
+.service-card-img img { width:100%; height:100%; object-fit:cover; }
+.service-card-body { padding: 24px 24px 12px; flex: 1; }
+.service-card-icon-small {
+  width: 44px; height: 44px;
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; margin-bottom: 14px;
+}
+.service-card-body h3 {
+  font-size: 18px; font-weight: 800; color: var(--primary);
+  margin-bottom: 8px;
+}
+.service-card-body p {
+  font-size: 13.5px; color: var(--text-muted); line-height: 1.6;
+}
+.service-card-tags {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  padding: 12px 24px 20px;
+}
+.service-tag {
+  background: rgba(13,43,94,0.08); color: var(--primary);
+  font-size: 11px; font-weight: 600; letter-spacing: 0.3px;
+  padding: 3px 10px; border-radius: 20px;
+}
+.service-card-cta {
+  padding: 0 24px 20px;
+}
+.service-card-cta a {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-size: 13px; font-weight: 700; color: var(--accent);
+  text-decoration: none; transition: gap 0.15s;
+}
+.service-card-cta a:hover { gap: 11px; color: var(--primary); }
+
+/* Specialisations section on services page */
+.services-cta-strip {
+  background: linear-gradient(135deg,var(--primary),#1e4d8c);
+  border-radius: 16px; padding: 48px 36px;
+  text-align: center; color: #fff; margin-top: 60px;
+}
+.services-cta-strip h2 { font-size: 26px; font-weight: 800; margin-bottom: 10px; }
+.services-cta-strip p  { color: rgba(255,255,255,0.78); font-size: 15px; max-width:500px; margin:0 auto 28px; }
+
+/* ============================================================
+   FOOTER UPGRADE — Logo + Social Icons
+   ============================================================ */
+.footer-logo-img {
+  height: 44px; width: auto;
+  filter: brightness(0) invert(1);
+  opacity: 0.85; margin-bottom: 16px;
+  display: block;
+}
+.footer-social {
+  display: flex; gap: 10px; margin-top: 16px;
+}
+.footer-social a {
+  width: 34px; height: 34px;
+  background: rgba(255,255,255,0.10);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; color: rgba(255,255,255,0.75) !important;
+  text-decoration: none; transition: background 0.18s, border-color 0.18s;
+  margin-bottom: 0 !important;
+}
+.footer-social a:hover {
+  background: var(--accent); border-color: var(--accent);
+  color: var(--primary) !important;
+}
+
+/* ============================================================
+   HOMEPAGE — Hero Stats animated highlight
+   ============================================================ */
+.stat-number {
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ============================================================
+   RESPONSIVE FIXES
+   ============================================================ */
+@media (max-width: 768px) {
+  .nav-logo-img { height: 34px; }
+  .service-cards-grid { grid-template-columns: 1fr; }
+}
