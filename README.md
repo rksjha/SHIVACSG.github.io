@@ -1,6 +1,6 @@
 # Shiva Consultancy Group — Public Website
 
-**Live URL:** https://rksjha.github.io/SHIVACSG.github.io/
+**Live URL:** https://rksjha.github.io/SHIVACSG
 
 Professional website for SCG — products, services, advertorials, media, and small apps for public distribution and social media sharing.
 
